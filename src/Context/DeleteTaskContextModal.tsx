@@ -8,13 +8,15 @@ import { noop } from "../consatant/const";
 
 type DeleteTaskModal = {
   isOpenModalDelete: boolean;
-  openDeleteModal: (id: string) => void;
+  nameDispatch: boolean;
+  openDeleteModal: (id: string, name: boolean) => void;
   closeDeleteModal: () => void;
   idDeleteModal: string;
 };
 
 const initialDeleteTaskModalContextValue = {
   isOpenModalDelete: false,
+  nameDispatch: false,
   openDeleteModal: noop,
   closeDeleteModal: noop,
   idDeleteModal: "",
@@ -29,10 +31,12 @@ export const DeleteTaskModalContextProvider = ({
 }: PropsWithChildren<{}>): JSX.Element => {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [idDeleteModal, setIdDeleteModal] = useState("");
+  const [nameDispatch, setNameDispatch] = useState(false);
 
-  const openDeleteModal = (id: string): void => {
+  const openDeleteModal = (id: string, name: boolean): void => {
     setIsOpenModalDelete(true);
     setIdDeleteModal(id);
+    setNameDispatch(name);
   };
 
   const closeDeleteModal = () => {
@@ -42,6 +46,7 @@ export const DeleteTaskModalContextProvider = ({
 
   const [context, setContext] = useState<DeleteTaskModal>({
     isOpenModalDelete,
+    nameDispatch,
     openDeleteModal,
     closeDeleteModal,
     idDeleteModal,
@@ -50,11 +55,12 @@ export const DeleteTaskModalContextProvider = ({
   useEffect(() => {
     setContext({
       isOpenModalDelete,
+      nameDispatch,
       openDeleteModal,
       closeDeleteModal,
       idDeleteModal,
     });
-  }, [isOpenModalDelete, idDeleteModal]);
+  }, [isOpenModalDelete, idDeleteModal, nameDispatch]);
   return (
     <DeleteTaskModalContext.Provider value={context}>
       {children}

@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { AddButton, Pharagraph } from "../../styles";
 import { Card } from "../Card";
 import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
-import { DeleteTaskModalContext } from "../../Context/DeleteTaskContextModal";
-import { AddTaskModalContext } from "../../Context/AddTaskModalContextProvider";
+import { Todo } from "../../types/Todos";
 
 export function InProgressCard(): JSX.Element {
-  const inProgressList = useSelector((state: RootState) => state);
-  const { openDeleteModal } = useContext(DeleteTaskModalContext);
-  const { openModalInProgress } = useContext(AddTaskModalContext);
+  const inProgressList: Todo[] = useSelector(
+    (state: any) => state.todos.inProgressList
+  );
+
+  const dispatch = useDispatch();
   return (
     <Card nameCard="In Progress columns">
       {inProgressList.map((todo) => (
@@ -18,13 +19,20 @@ export function InProgressCard(): JSX.Element {
           {todo.description}
           <DeleteTwoTone
             onClick={(): void => {
-              openDeleteModal(todo.id);
+              const data = { id: todo.id, name: "inProgressList" };
+              dispatch({ type: "OPEN_DELETE_MODAL", data });
             }}
             style={{ cursor: "pointer" }}
           />
         </Pharagraph>
       ))}
-      <AddButton onClick={openModalInProgress}> + Add another card</AddButton>
+      <AddButton
+        onClick={() => {
+          dispatch({ type: "OPEN_INPROGRESS" });
+        }}
+      >
+        + Add another card
+      </AddButton>
     </Card>
   );
 }

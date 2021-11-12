@@ -1,9 +1,17 @@
-import { configureStore } from "@reduxjs/toolkit";
-import todosReducer from "./todoSlice";
+import { combineReducers } from "redux";
+import { todos } from "./reducers/todoReducers";
+import { modal } from "./reducers/ModalReducers";
 
-export const store = configureStore({
-  reducer: todosReducer,
+const allReducers = {
+  ...todos,
+  ...modal,
+};
+
+export type AppState = {
+  [key in keyof typeof allReducers]: ReturnType<typeof allReducers[key]>;
+};
+
+export const rootReducer = combineReducers({
+  todos,
+  modal,
 });
-
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;

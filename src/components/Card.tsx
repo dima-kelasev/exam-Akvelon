@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
-import { StyledCard, AddButton } from "../styles";
+import React from "react";
+import { StyledCard } from "../styles";
 import { Typography } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
-import { AddTaskModalContext } from "../Context/AddTaskModalContextProvider";
 
 const { Text } = Typography;
 
@@ -12,8 +11,6 @@ interface CardProps {
 }
 
 export function Card({ nameCard, children }: CardProps): JSX.Element {
-  const { openModalAdd } = useContext(AddTaskModalContext);
-
   return (
     <StyledCard>
       <div style={{ display: "flex", justifyContent: "space-between" }}>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import {
   CloseIcon,
@@ -7,20 +7,30 @@ import {
   FormButton,
 } from "../../styles";
 import { Typography } from "antd";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { removeTodo } from "../../redux/todoSlice";
-import { DeleteTaskModalContext } from "../../Context/DeleteTaskContextModal";
+import { useDispatch, useSelector } from "react-redux";
 
 const { Title } = Typography;
 
 interface DeleteModalProps {
   isOpen: boolean;
+  taskId: string;
   onClose: () => void;
 }
-export const DeleteModal = ({ isOpen, onClose }: DeleteModalProps) => {
-  const { idDeleteModal } = useContext(DeleteTaskModalContext);
-  const dispatch = useDispatch<AppDispatch>();
+export const DeleteModal = ({ isOpen, onClose, taskId }: DeleteModalProps) => {
+  const dispatch = useDispatch();
+
+  const nameDeleteColumns = useSelector((state: any) => state.modal.name);
+
+  const onDelete = () => {
+    const data = {
+      name: nameDeleteColumns,
+      id: taskId,
+    };
+    dispatch({ type: "DELETE_TASK", data });
+
+    onClose();
+  };
+
   if (!isOpen) return null;
   return ReactDOM.createPortal(
     <StyledModal>
@@ -32,13 +42,7 @@ export const DeleteModal = ({ isOpen, onClose }: DeleteModalProps) => {
         <FormButton onClick={onClose} htmlType="submit">
           No
         </FormButton>
-        <FormButton
-          style={{ background: "#ff4d4f" }}
-          onClick={(): void => {
-            dispatch(removeTodo(idDeleteModal));
-            onClose();
-          }}
-        >
+        <FormButton style={{ background: "#ff4d4f" }} onClick={onDelete}>
           Yes
         </FormButton>
       </FormItemButton>

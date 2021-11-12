@@ -7,6 +7,7 @@ type AddTaskModal = {
   openModalAdd: () => void;
   openModalInProgress: () => void;
   closeModalAdd: () => void;
+  closeModaInProgress: () => void;
 };
 
 const initialAddTaskModalContextValue = {
@@ -15,6 +16,7 @@ const initialAddTaskModalContextValue = {
   openModalAdd: noop,
   openModalInProgress: noop,
   closeModalAdd: noop,
+  closeModaInProgress: noop,
 };
 
 export const AddTaskModalContext = createContext<AddTaskModal>(
@@ -39,12 +41,17 @@ export const AddTaskModalContextProvider = ({
     setIsOpenModalAdd(false);
   };
 
+  const closeModaInProgress = (): void => {
+    setIsOpenModalInProgress(false);
+  };
+
   const [context, setContext] = useState<AddTaskModal>({
     isOpenModalAdd,
     isOpenModalInProgress,
     openModalAdd,
     openModalInProgress,
     closeModalAdd,
+    closeModaInProgress,
   });
 
   useEffect(() => {
@@ -54,6 +61,7 @@ export const AddTaskModalContextProvider = ({
       openModalAdd,
       openModalInProgress,
       closeModalAdd,
+      closeModaInProgress,
     });
   }, [isOpenModalAdd, isOpenModalInProgress]);
   return (

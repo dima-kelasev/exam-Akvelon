@@ -1,6 +1,5 @@
 import React, { ReactNode, useState } from "react";
 import ReactDOM from "react-dom";
-
 import {
   CloseIcon,
   StyledModal,
@@ -9,22 +8,25 @@ import {
   Input,
 } from "../../styles";
 import { Typography } from "antd";
-
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { addTodoList } from "../../redux/todoSlice";
 
 const { Title } = Typography;
 
 interface AddModalProps {
-  message: string;
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
 }
 export const AddModal = ({ isOpen, onClose }: AddModalProps) => {
   const [todoDescription, setTodoDescription] = useState("");
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
+
+  const addTask = (): void => {
+    const data = { name: "todoList", value: todoDescription };
+    dispatch({ type: "ADD_TASK", data });
+    setTodoDescription("");
+    onClose();
+  };
 
   if (!isOpen) return null;
   return ReactDOM.createPortal(
@@ -43,14 +45,7 @@ export const AddModal = ({ isOpen, onClose }: AddModalProps) => {
         <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
           Cancel
         </FormButton>
-        <FormButton
-          onClick={() => {
-            dispatch(addTodoList(todoDescription));
-            setTodoDescription("");
-            onClose();
-          }}
-          htmlType="submit"
-        >
+        <FormButton onClick={addTask} htmlType="submit">
           Add
         </FormButton>
       </FormItemButton>

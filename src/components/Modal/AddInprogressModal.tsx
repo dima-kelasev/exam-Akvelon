@@ -11,20 +11,19 @@ import {
 import { Typography } from "antd";
 
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { addProgressList } from "../../redux/todoSlice";
+
+// import { addProgressList } from "../../redux/todoSlice";
 
 const { Title } = Typography;
 
 interface AddModalProps {
-  message: string;
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
 }
 export const AddInProgressModal = ({ isOpen, onClose }: AddModalProps) => {
   const [todoDescription, setTodoDescription] = useState("");
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   if (!isOpen) return null;
   return ReactDOM.createPortal(
@@ -45,7 +44,8 @@ export const AddInProgressModal = ({ isOpen, onClose }: AddModalProps) => {
         </FormButton>
         <FormButton
           onClick={() => {
-            dispatch(addProgressList(todoDescription));
+            const data = { name: "inProgressList", value: todoDescription };
+            dispatch({ type: "ADD_TASK", data });
             setTodoDescription("");
             onClose();
           }}
