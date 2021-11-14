@@ -33,6 +33,8 @@ export const AddInProgressModal = ({ isOpen, onClose }: AddModalProps) => {
       </Title>
       <CloseIcon onClick={onClose} />
       <Input
+        required
+        autoFocus
         placeholder="...new task"
         type="text"
         value={todoDescription}
