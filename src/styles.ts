@@ -11,6 +11,9 @@ export const FormItemButton = styled.div`
 
 export const Input = styled.input`
   border: 0;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const StyledRow = styled(Row)`
