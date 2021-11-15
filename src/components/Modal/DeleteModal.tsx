@@ -27,8 +27,8 @@ export const DeleteModal = ({ isOpen, onClose, taskId }: DeleteModalProps) => {
       id: taskId,
     };
     dispatch({ type: "DELETE_TASK", data });
-
     onClose();
+    // window.location.reload();
   };
 
   if (!isOpen) return null;
