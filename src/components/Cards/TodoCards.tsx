@@ -9,24 +9,20 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import { useState } from "react";
 import { getItemStyle, getListStyle } from "./styles";
 
 export const TodoCard = (): JSX.Element => {
-  const state: Todo[] = useSelector((state: any) => state.todos.todoList);
+  const TodoList: Todo[] = useSelector((state: any) => state.todos.todoList);
   const dispatch = useDispatch();
-  const [TodoList, setTodoList] = useState(state);
 
   const onDragEnd = (result: DropResult): void => {
     if (!result.destination) return;
     const copiedList = [...TodoList];
     const [reorderedItem] = copiedList.splice(result.source.index, 1);
     copiedList.splice(result.destination.index, 0, reorderedItem);
-    // console.log(copiedList);
-
-    setTodoList(copiedList);
+    const data = { name: "todoList", list: copiedList };
+    dispatch({ type: "REVISE_STATE", data });
   };
-  console.log(TodoList);
 
   return (
     <Card nameCard="TODO columns">

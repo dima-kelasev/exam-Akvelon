@@ -5,6 +5,7 @@ type dataType = {
   name: string;
   value?: string;
   id?: string;
+  list: Todo[];
 };
 
 export type AddTodoList = {
@@ -21,12 +22,10 @@ const initialState: StateType = {
   inProgressList: [],
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export const todos = (state = initialState, action: AddTodoList) => {
   const { data } = action;
   switch (action.type) {
     case "ADD_TASK":
-      console.log(action);
       const copiedList = state[data.name].slice();
       const task: Todo = { id: uuidv4(), description: data.value };
       copiedList.push(task);
@@ -41,7 +40,12 @@ export const todos = (state = initialState, action: AddTodoList) => {
         ...state,
         [data.name]: filteredCopy,
       };
-
+    case "REVISE_STATE":
+      const copiedState = { ...state };
+      copiedState[data.name] = data.list;
+      return {
+        ...copiedState,
+      };
     default:
       return state;
   }
