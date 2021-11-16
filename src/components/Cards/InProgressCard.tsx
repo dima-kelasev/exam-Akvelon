@@ -29,7 +29,7 @@ export function InProgressCard(): JSX.Element {
 
   const dispatch = useDispatch();
   return (
-    <Card nameCard="TODO columns">
+    <Card nameCard="InProgress columns">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot): JSX.Element => (
@@ -69,7 +69,8 @@ export function InProgressCard(): JSX.Element {
       </DragDropContext>
       <AddButton
         onClick={() => {
-          dispatch({ type: "OPEN_INPROGRESS" });
+          const data = { name: "inProgressList" };
+          dispatch({ type: "OPEN_CREATE_MODAL", data });
         }}
       >
         + Add another card

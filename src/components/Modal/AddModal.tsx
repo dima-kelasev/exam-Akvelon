@@ -8,7 +8,7 @@ import {
   Input,
 } from "../../styles";
 import { Typography } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const { Title } = Typography;
 
@@ -20,9 +20,10 @@ interface AddModalProps {
 export const AddModal = ({ isOpen, onClose }: AddModalProps) => {
   const [todoDescription, setTodoDescription] = useState("");
   const dispatch = useDispatch();
+  const nameColumn = useSelector((state: any) => state.modal.name);
 
   const addTask = (): void => {
-    const data = { name: "todoList", value: todoDescription };
+    const data = { name: `${nameColumn}`, value: todoDescription };
     dispatch({ type: "ADD_TASK", data });
     setTodoDescription("");
     onClose();

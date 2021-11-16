@@ -1,7 +1,28 @@
-import { Row } from "antd";
-import { Card, Button } from "antd";
+import { Card, Button, Row } from "antd";
 import styled from "styled-components";
 import { CloseOutlined } from "@ant-design/icons";
+
+export const WrapperLoader = styled.div`
+  position: absolute;
+  bottom: 50px;
+  left: 45%;
+`;
+
+export const PromotionCard = styled(Card)`
+  background: #00adff;
+  margin: 0 auto 10px;
+  color: #fff;
+  border: 1px solid #d3d3d3;
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  padding: 10px;
+  border-radius: 5px;
+  -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  text-align: center;
+`;
 
 export const FormItemButton = styled.div`
   display: flex;

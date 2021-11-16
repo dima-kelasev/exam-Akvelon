@@ -2,7 +2,6 @@ import { AddTodoList } from "./todoReducers";
 
 export type ModalState = {
   isOpenCreate: boolean;
-  isOpenInProgressiv: boolean;
   isOpenDelete: boolean;
   id?: string;
   name?: string;
@@ -10,7 +9,6 @@ export type ModalState = {
 
 const initialStateModal: ModalState = {
   isOpenCreate: false,
-  isOpenInProgressiv: false,
   isOpenDelete: false,
   id: "",
   name: "",
@@ -21,11 +19,9 @@ export const modal = (state = initialStateModal, action: AddTodoList) => {
     case "OPEN_CREATE_MODAL":
       return {
         isOpenCreate: true,
+        name: action.data.name,
       };
-    case "OPEN_INPROGRESS":
-      return {
-        isOpenInProgressiv: true,
-      };
+
     case "OPEN_DELETE_MODAL":
       return {
         isOpenDelete: true,

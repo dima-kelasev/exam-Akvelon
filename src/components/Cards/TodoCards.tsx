@@ -65,7 +65,8 @@ export const TodoCard = (): JSX.Element => {
       </DragDropContext>
       <AddButton
         onClick={() => {
-          dispatch({ type: "OPEN_CREATE_MODAL" });
+          const data = { name: "todoList" };
+          dispatch({ type: "OPEN_CREATE_MODAL", data });
         }}
       >
         + Add another card

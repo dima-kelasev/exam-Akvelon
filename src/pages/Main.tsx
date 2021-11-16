@@ -1,21 +1,38 @@
 import { Col } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddList } from "../components/AddList";
 import { DoneCard } from "../components/Cards/DoneCard";
 import { InProgressCard } from "../components/Cards/InProgressCard";
 import { TodoCard } from "../components/Cards/TodoCards";
-import { AddInProgressModal } from "../components/Modal/AddInprogressModal";
 import { AddModal } from "../components/Modal/AddModal";
 import { DeleteModal } from "../components/Modal/DeleteModal";
+import { Promotion } from "../components/Promotion";
 import { StyledRow } from "../styles";
+import { Post } from "../types/Todos";
+import { loadData } from "./action";
 
+export interface PostsProps {
+  body: string;
+  id: string;
+  title: string;
+  userId: string;
+}
+type StateType = {
+  [key: string]: Post[];
+};
 export function MainPage(): JSX.Element {
   const dispatch = useDispatch();
+  // const [posts, setPosts] = useState<PostsProps>();
+  const post = useSelector((state: any) => state.posts.posts);
 
-  const { isOpenCreate, isOpenInProgressiv, isOpenDelete, id } = useSelector(
+  const { isOpenCreate, isOpenDelete, id } = useSelector(
     (state: any) => state.modal
   );
+
+  useEffect(() => {
+    dispatch(loadData());
+  }, []);
 
   return (
     <>
@@ -40,12 +57,6 @@ export function MainPage(): JSX.Element {
           dispatch({ type: "CLOSE_MODAL" });
         }}
       />
-      <AddInProgressModal
-        isOpen={isOpenInProgressiv}
-        onClose={() => {
-          dispatch({ type: "CLOSE_MODAL" });
-        }}
-      />
       <DeleteModal
         isOpen={isOpenDelete}
         taskId={id}
@@ -53,6 +64,7 @@ export function MainPage(): JSX.Element {
           dispatch({ type: "CLOSE_DELETE_MODAL" });
         }}
       />
+      {/* <Promotion post={post} /> */}
     </>
   );
 }

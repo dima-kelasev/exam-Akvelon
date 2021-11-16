@@ -20,6 +20,7 @@ type StateType = {
 const initialState: StateType = {
   todoList: [],
   inProgressList: [],
+  DoneList: [],
 };
 
 export const todos = (state = initialState, action: AddTodoList) => {
