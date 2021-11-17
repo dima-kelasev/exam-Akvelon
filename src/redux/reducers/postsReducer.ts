@@ -1,40 +1,28 @@
-import { Post } from "../../types/Todos";
-
-type dataType = {
-  body: string;
-  id: string;
-  title: string;
-  userId: string;
-  isViewed: boolean;
-};
-
-export type AddPostsList = {
+export type Posts = {
   type: string;
-  data: dataType;
+  data: string;
 };
 
 type StateType = {
-  posts: Post[];
+  posts: string[];
 };
 
 const initialState: StateType = {
   posts: [],
 };
 
-export const posts = (state = initialState, action: AddPostsList) => {
+export const posts = (state = initialState, action: Posts) => {
   const { data } = action;
   switch (action.type) {
-    case "ADD_POSTS":
+    case "SET_VIEWED_POST":
       const posts = state.posts.slice();
-      posts.map((item) => {
-        item.isViewed = false;
-      });
-
       posts.push(data);
       return {
         ...state,
         posts,
       };
+    case "DROP_STATE":
+      return initialState;
     default:
       return state;
   }

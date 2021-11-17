@@ -2,6 +2,15 @@ import { Card, Button, Row } from "antd";
 import styled from "styled-components";
 import { CloseOutlined } from "@ant-design/icons";
 
+export const ModalPromotion = styled.div`
+  background: #00adff;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 10px 0 0 0;
+  color: #fff;
+  font-size: 12px;
+`;
+
 export const WrapperLoader = styled.div`
   position: absolute;
   bottom: 50px;

@@ -8,5 +8,5 @@ export type Post = {
   id: string;
   title: string;
   userId: string;
-  isViewed: boolean | null;
+  isViewed: boolean;
 };

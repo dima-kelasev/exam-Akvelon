@@ -1,10 +1,11 @@
 import { Col } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddList } from "../components/AddList";
 import { DoneCard } from "../components/Cards/DoneCard";
 import { InProgressCard } from "../components/Cards/InProgressCard";
 import { TodoCard } from "../components/Cards/TodoCards";
+import { Loader } from "../components/Loader";
 import { AddModal } from "../components/Modal/AddModal";
 import { DeleteModal } from "../components/Modal/DeleteModal";
 import { Promotion } from "../components/Promotion";
@@ -17,21 +18,24 @@ export interface PostsProps {
   id: string;
   title: string;
   userId: string;
+  isViewed: boolean;
 }
-type StateType = {
-  [key: string]: Post[];
-};
+
 export function MainPage(): JSX.Element {
   const dispatch = useDispatch();
-  // const [posts, setPosts] = useState<PostsProps>();
-  const post = useSelector((state: any) => state.posts.posts);
-
+  const [post, setPost] = React.useState<Post | undefined>();
   const { isOpenCreate, isOpenDelete, id } = useSelector(
     (state: any) => state.modal
   );
 
+  const load = async (): Promise<void> => {
+    const result = await dispatch(loadData());
+    // @ts-ignore
+    setPost(result);
+  };
+
   useEffect(() => {
-    dispatch(loadData());
+    load();
   }, []);
 
   return (
@@ -56,6 +60,7 @@ export function MainPage(): JSX.Element {
         onClose={() => {
           dispatch({ type: "CLOSE_MODAL" });
         }}
+        post={post}
       />
       <DeleteModal
         isOpen={isOpenDelete}
@@ -64,7 +69,7 @@ export function MainPage(): JSX.Element {
           dispatch({ type: "CLOSE_DELETE_MODAL" });
         }}
       />
-      {/* <Promotion post={post} /> */}
+      {post ? <Promotion post={post} /> : <Loader />}
     </>
   );
 }

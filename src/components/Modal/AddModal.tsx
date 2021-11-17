@@ -6,9 +6,12 @@ import {
   FormItemButton,
   FormButton,
   Input,
+  ModalPromotion,
 } from "../../styles";
 import { Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { PostsProps } from "../../pages/Main";
+import { Loader } from "../Loader";
 
 const { Title } = Typography;
 
@@ -16,8 +19,9 @@ interface AddModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
+  post?: PostsProps;
 }
-export const AddModal = ({ isOpen, onClose }: AddModalProps) => {
+export const AddModal = ({ isOpen, onClose, post }: AddModalProps) => {
   const [todoDescription, setTodoDescription] = useState("");
   const dispatch = useDispatch();
   const nameColumn = useSelector((state: any) => state.modal.name);
@@ -52,6 +56,16 @@ export const AddModal = ({ isOpen, onClose }: AddModalProps) => {
           Add
         </FormButton>
       </FormItemButton>
+
+      {post ? (
+        <ModalPromotion>
+          <p>{post.title}</p>
+          <p>post number is {post.id}</p>
+          <p>{post.body}</p>
+        </ModalPromotion>
+      ) : (
+        <div />
+      )}
     </StyledModal>,
     document.body
   );
