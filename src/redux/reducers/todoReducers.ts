@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 
 type dataType = {
   name: string;
-  value?: string;
+  otherArray: string;
+  value: string;
   id?: string;
   list: Todo[];
 };
@@ -20,7 +21,7 @@ type StateType = {
 const initialState: StateType = {
   todoList: [],
   inProgressList: [],
-  DoneList: [],
+  doneList: [],
 };
 
 export const todos = (state = initialState, action: AddTodoList) => {
@@ -46,6 +47,24 @@ export const todos = (state = initialState, action: AddTodoList) => {
       copiedState[data.name] = data.list;
       return {
         ...copiedState,
+      };
+    case "MOVE_POST":
+      //@ts-ignore
+      const { fromListName, toListName, taskId } = data;
+      const fromList = state[fromListName];
+      const taskIdx = fromList.findIndex((el) => el.id === taskId);
+      if (fromList && taskIdx !== -1) {
+        const copiedTask = fromList[taskIdx];
+        const toList = state[toListName];
+        toList.push(copiedTask);
+        return {
+          ...state,
+          [toListName]: toList,
+          [fromListName]: fromList.filter((el) => el.id !== taskId),
+        };
+      }
+      return {
+        ...state,
       };
     default:
       return state;

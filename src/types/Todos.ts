@@ -1,6 +1,6 @@
 export type Todo = {
   id: string;
-  description?: string;
+  description: string;
 };
 
 export type Post = {

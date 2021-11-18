@@ -26,43 +26,43 @@ export const TodoCard = (): JSX.Element => {
 
   return (
     <Card nameCard="TODO columns">
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot): JSX.Element => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {TodoList.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided, snapshot): JSX.Element => (
-                    <Pharagraph
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      {item.description}
-                      <DeleteTwoTone
-                        onClick={(): void => {
-                          const data = { id: item.id, name: "todoList" };
-                          dispatch({ type: "OPEN_DELETE_MODAL", data });
-                        }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Pharagraph>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      {/* <DragDropContext onDragEnd={onDragEnd}> */}
+      <Droppable droppableId="todoList">
+        {(provided, snapshot): JSX.Element => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            style={getListStyle(snapshot.isDraggingOver)}
+          >
+            {TodoList.map((item, index) => (
+              <Draggable key={item.id} draggableId={item.id} index={index}>
+                {(provided, snapshot): JSX.Element => (
+                  <Pharagraph
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
+                  >
+                    {item.description}
+                    <DeleteTwoTone
+                      onClick={(): void => {
+                        const data = { id: item.id, name: "todoList" };
+                        dispatch({ type: "OPEN_DELETE_MODAL", data });
+                      }}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Pharagraph>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+      {/* </DragDropContext> */}
       <AddButton
         onClick={() => {
           const data = { name: "todoList" };
