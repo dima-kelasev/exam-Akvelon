@@ -1,0 +1,26 @@
+{
+  "welcome": {
+    "title": " Список задач"
+  },
+  "todoCards": {
+    "titleTodo": "Нужно сделать",
+    "titleInProgress": "В процессе",
+    "titleDone": "Сделанно",
+    "addButton": "+ Добавить еще задачу"
+  },
+  "modal": {
+    "yes": "Да",
+    "no": "Нет",
+    "add": "Добавить",
+    "cancel": "Отмена",
+    "deleteTitle": "Вы уверены?",
+    "addTask": "Добавить новую задачу",
+    "placeholder": "...добавить задачу",
+    "promotion": "Номер поста"
+  },
+  "lang": {
+    "langTitle": "Язык",
+    "rus": "Рус",
+    "en": "Англ"
+  }
+}

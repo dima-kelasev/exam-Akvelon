@@ -2,31 +2,19 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../Card";
 import { Todo } from "../../types/Todos";
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult,
-} from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { getItemStyle, getListStyle } from "./styles";
 import { AddButton, Pharagraph } from "../../styles";
 import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
+import { useTranslation } from "react-i18next";
 
 export function DoneCard(): JSX.Element {
+  const { t } = useTranslation("common");
   const doneList: Todo[] = useSelector((state: any) => state.todos.doneList);
   const dispatch = useDispatch();
 
-  const onDragEnd = (result: DropResult): void => {
-    if (!result.destination) return;
-    const copiedList = [...doneList];
-    const [reorderedItem] = copiedList.splice(result.source.index, 1);
-    copiedList.splice(result.destination.index, 0, reorderedItem);
-    const data = { name: "doneList", list: copiedList };
-    dispatch({ type: "REVISE_STATE", data });
-  };
-
   return (
-    <Card nameCard="Done columns">
+    <Card nameCard={t("todoCards.titleDone")}>
       <Droppable droppableId="doneList">
         {(provided, snapshot): JSX.Element => (
           <div
@@ -68,7 +56,7 @@ export function DoneCard(): JSX.Element {
           dispatch({ type: "OPEN_CREATE_MODAL", data });
         }}
       >
-        + Add another card
+        {t("todoCards.addButton")}
       </AddButton>
     </Card>
   );

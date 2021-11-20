@@ -11,9 +11,10 @@ import { AddModal } from "../components/Modal/AddModal";
 import { DeleteModal } from "../components/Modal/DeleteModal";
 import { Promotion } from "../components/Promotion";
 import { StyledRow } from "../styles";
-// import { QuoteApp } from "../test";
-import { Post, Todo } from "../types/Todos";
+import { Post } from "../types/Todos";
 import { loadData } from "./action";
+import { useTranslation } from "react-i18next";
+import { ButtonTranslate } from "../components/ButtonTanslate";
 
 export interface PostsProps {
   body: string;
@@ -24,16 +25,13 @@ export interface PostsProps {
 }
 
 export function MainPage(): JSX.Element {
+  const { t } = useTranslation("common");
   const dispatch = useDispatch();
   const [post, setPost] = React.useState<Post | undefined>();
   const { isOpenCreate, isOpenDelete, id } = useSelector(
     (state: any) => state.modal
   );
   const state = useSelector((state: any) => state.todos);
-
-  const deleteItem = (list: any, index: any) => {
-    return list.splice(index, 1);
-  };
 
   const onDragEnd = (result: DropResult): void => {
     const { source, destination, draggableId } = result;
@@ -46,9 +44,6 @@ export function MainPage(): JSX.Element {
       const data = { name: `${source.droppableId}`, list: copiedList };
       dispatch({ type: "REVISE_STATE", data });
     } else {
-      // const postList = state[source.droppableId];
-      // const removed = deleteItem(postList, source.index);
-      // postList.splice(destination.index, 0, removed);
       const data = {
         fromListName: source.droppableId,
         toListName: destination.droppableId,
@@ -71,7 +66,8 @@ export function MainPage(): JSX.Element {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <h1>Task manager</h1>
+        <ButtonTranslate />
+        <h1>{t("welcome.title")}</h1>
         <StyledRow gutter={16}>
           <Col span={6}>
             <TodoCard />
@@ -101,7 +97,7 @@ export function MainPage(): JSX.Element {
           dispatch({ type: "CLOSE_DELETE_MODAL" });
         }}
       />
-      {/* {post ? <Promotion post={post} /> : <Loader />} */}
+      {post ? <Promotion post={post} /> : <Loader />}
     </>
   );
 }

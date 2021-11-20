@@ -8,6 +8,7 @@ import {
 } from "../../styles";
 import { Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const { Title } = Typography;
 
@@ -17,6 +18,7 @@ interface DeleteModalProps {
   onClose: () => void;
 }
 export const DeleteModal = ({ isOpen, onClose, taskId }: DeleteModalProps) => {
+  const { t } = useTranslation("common");
   const dispatch = useDispatch();
 
   const nameDeleteColumns = useSelector((state: any) => state.modal.name);
@@ -28,22 +30,21 @@ export const DeleteModal = ({ isOpen, onClose, taskId }: DeleteModalProps) => {
     };
     dispatch({ type: "DELETE_TASK", data });
     onClose();
-    // window.location.reload();
   };
 
   if (!isOpen) return null;
   return ReactDOM.createPortal(
     <StyledModal>
       <Title level={3} style={{ margin: "0, 0, 10px, 0 " }}>
-        Are you sure?
+        {t("modal.deleteTitle")}
       </Title>
       <CloseIcon onClick={onClose} />
       <FormItemButton style={{ justifyContent: "center" }}>
         <FormButton onClick={onClose} htmlType="submit">
-          No
+          {t("modal.no")}
         </FormButton>
         <FormButton style={{ background: "#ff4d4f" }} onClick={onDelete}>
-          Yes
+          {t("modal.yes")}
         </FormButton>
       </FormItemButton>
     </StyledModal>,

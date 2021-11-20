@@ -11,7 +11,7 @@ import {
 import { Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { PostsProps } from "../../pages/Main";
-import { Loader } from "../Loader";
+import { useTranslation } from "react-i18next";
 
 const { Title } = Typography;
 
@@ -22,6 +22,7 @@ interface AddModalProps {
   post?: PostsProps;
 }
 export const AddModal = ({ isOpen, onClose, post }: AddModalProps) => {
+  const { t } = useTranslation("common");
   const [todoDescription, setTodoDescription] = useState("");
   const dispatch = useDispatch();
   const nameColumn = useSelector((state: any) => state.modal.name);
@@ -37,30 +38,32 @@ export const AddModal = ({ isOpen, onClose, post }: AddModalProps) => {
   return ReactDOM.createPortal(
     <StyledModal>
       <Title level={3} style={{ margin: "0, 0, 10px, 0 " }}>
-        Add New Task
+        {t("modal.addTask")}
       </Title>
       <CloseIcon onClick={onClose} />
       <Input
         required
         autoFocus
-        placeholder="...new task"
+        placeholder={t("modal.placeholder")}
         type="text"
         value={todoDescription}
         onChange={(e) => setTodoDescription(e.target.value)}
       />
       <FormItemButton>
         <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
-          Cancel
+          {t("modal.cancel")}
         </FormButton>
         <FormButton onClick={addTask} htmlType="submit">
-          Add
+          {t("modal.add")}
         </FormButton>
       </FormItemButton>
 
       {post ? (
         <ModalPromotion>
           <p>{post.title}</p>
-          <p>post number is {post.id}</p>
+          <p>
+            {t("modal.promotion")}&nbsp; {post.id}
+          </p>
           <p>{post.body}</p>
         </ModalPromotion>
       ) : (

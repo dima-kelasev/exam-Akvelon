@@ -1,0 +1,26 @@
+{
+  "welcome": {
+    "title": "Task manager"
+  },
+  "todoCards": {
+    "titleTodo": "TODO columns",
+    "titleInProgress": "InProgress columns",
+    "titleDone": "Done columns",
+    "addButton": "+ Add another card"
+  },
+  "modal": {
+    "yes": "Yes",
+    "no": "No",
+    "add": "Add",
+    "cancel": "Cancel",
+    "deleteTitle": "Are you sure?",
+    "addTask": "Add New Task",
+    "placeholder": "...add task",
+    "promotion": "Post number"
+  },
+  "lang": {
+    "langTitle": "Language",
+    "rus": "Rus",
+    "en": "Eng"
+  }
+}

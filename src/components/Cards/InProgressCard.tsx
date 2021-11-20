@@ -1,21 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { AddButton, Pharagraph } from "../../styles";
 import { Card } from "../Card";
 import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
 import { Todo } from "../../types/Todos";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { getItemStyle, getListStyle } from "./styles";
+import { useTranslation } from "react-i18next";
 
 export function InProgressCard(): JSX.Element {
+  const { t } = useTranslation("common");
   const inProgressList: Todo[] = useSelector(
     (state: any) => state.todos.inProgressList
   );
 
   const dispatch = useDispatch();
   return (
-    <Card nameCard="InProgress columns">
+    <Card nameCard={t("todoCards.titleInProgress")}>
       <Droppable droppableId="inProgressList">
         {(provided, snapshot): JSX.Element => (
           <div
@@ -58,7 +59,7 @@ export function InProgressCard(): JSX.Element {
           dispatch({ type: "OPEN_CREATE_MODAL", data });
         }}
       >
-        + Add another card
+        {t("todoCards.addButton")}
       </AddButton>
     </Card>
   );

@@ -3,30 +3,17 @@ import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../Card";
 import { Todo } from "../../types/Todos";
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult,
-} from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import { getItemStyle, getListStyle } from "./styles";
+import { useTranslation } from "react-i18next";
 
 export const TodoCard = (): JSX.Element => {
+  const { t } = useTranslation("common");
   const TodoList: Todo[] = useSelector((state: any) => state.todos.todoList);
   const dispatch = useDispatch();
 
-  const onDragEnd = (result: DropResult): void => {
-    if (!result.destination) return;
-    const copiedList = [...TodoList];
-    const [reorderedItem] = copiedList.splice(result.source.index, 1);
-    copiedList.splice(result.destination.index, 0, reorderedItem);
-    const data = { name: "todoList", list: copiedList };
-    dispatch({ type: "REVISE_STATE", data });
-  };
-
   return (
-    <Card nameCard="TODO columns">
-      {/* <DragDropContext onDragEnd={onDragEnd}> */}
+    <Card nameCard={t("todoCards.titleTodo")}>
       <Droppable droppableId="todoList">
         {(provided, snapshot): JSX.Element => (
           <div
@@ -62,14 +49,13 @@ export const TodoCard = (): JSX.Element => {
           </div>
         )}
       </Droppable>
-      {/* </DragDropContext> */}
       <AddButton
         onClick={() => {
           const data = { name: "todoList" };
           dispatch({ type: "OPEN_CREATE_MODAL", data });
         }}
       >
-        + Add another card
+        {t("todoCards.addButton")}
       </AddButton>
     </Card>
   );
