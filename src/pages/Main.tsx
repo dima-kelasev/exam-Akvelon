@@ -10,11 +10,12 @@ import { Loader } from "../components/Loader";
 import { AddModal } from "../components/Modal/AddModal";
 import { DeleteModal } from "../components/Modal/DeleteModal";
 import { Promotion } from "../components/Promotion";
-import { StyledRow } from "../styles";
+import { StyledRow, Title } from "../styles";
 import { Post } from "../types/Todos";
 import { loadData } from "./action";
 import { useTranslation } from "react-i18next";
 import { ButtonTranslate } from "../components/ButtonTanslate";
+import { ThemeSelector } from "../components/ThemeSelector";
 
 export interface PostsProps {
   body: string;
@@ -61,13 +62,14 @@ export function MainPage(): JSX.Element {
 
   useEffect(() => {
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <ButtonTranslate />
-        <h1>{t("welcome.title")}</h1>
+        <Title>{t("welcome.title")}</Title>
         <StyledRow gutter={16}>
           <Col span={6}>
             <TodoCard />
@@ -83,6 +85,7 @@ export function MainPage(): JSX.Element {
           </Col>
         </StyledRow>
       </DragDropContext>
+      <ThemeSelector />
       <AddModal
         isOpen={isOpenCreate}
         onClose={() => {

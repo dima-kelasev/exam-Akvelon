@@ -1,6 +1,25 @@
 import { Card, Button, Row } from "antd";
 import styled from "styled-components";
 import { CloseOutlined } from "@ant-design/icons";
+import Select from "@mui/material/Select";
+
+export const StyledSelect = styled(Select)`
+  color: ${(props) => props.theme.title};
+  .jIWkLN {
+  }
+`;
+
+export const StyledPharagraph = styled.p`
+  color: ${(props: any) => props.theme.inteface};
+`;
+
+export const Title = styled.h1`
+  color: ${(props) => props.theme.title};
+`;
+
+export const BodyStyled = styled.div`
+  background-color: ${(props: any) => props.theme.backgroundColor};
+`;
 
 export const ModalPromotion = styled.div`
   background: #00adff;
@@ -54,10 +73,10 @@ export const StyledRow = styled(Row)`
 
 export const StyledCard = styled(Card)`
   width: 300px;
-  background: #cdc2c2;
+  background: ${(props: any) => props.theme.inteface};
   padding: 10px;
   text-align: left;
-  color: #000;
+  color: ${(props) => props.theme.textColor};
   border-radius: 10px;
 `;
 
@@ -77,6 +96,7 @@ export const AddButton = styled(Button)`
   margin-left: 10px;
   border: 0;
   cursor: pointer;
+  color: ${(props) => props.theme.textColor};
 `;
 
 export const FormButton = styled(Button)`
@@ -103,9 +123,9 @@ export const StyledModal = styled.div`
   left: 38%;
   z-index: 2;
   width: 300px;
-  background: #fff;
+  background: ${(props: any) => props.theme.inteface};
   border-radius: 10px;
-  color: #000;
+  color: ${(props: any) => props.theme.textColor};
   text-align: center;
   padding: 10px;
   -webkit-box-shadow: 4px 4px 30px 15px rgba(34, 60, 80, 0.2);
