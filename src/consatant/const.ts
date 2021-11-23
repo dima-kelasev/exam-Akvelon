@@ -3,3 +3,5 @@ export function noop(...args: unknown[]): void {
 }
 
 export const POST_LIMIT = 100;
+
+export const MINUTE_MS = 10000;

@@ -16,6 +16,9 @@ import { loadData } from "./action";
 import { useTranslation } from "react-i18next";
 import { ButtonTranslate } from "../components/ButtonTanslate";
 import { ThemeSelector } from "../components/ThemeSelector";
+import { applyTheme } from "../redux/themeActions";
+import { darkTheme, lightTheme } from "../themes";
+import { MINUTE_MS } from "../consatant/const";
 
 export interface PostsProps {
   body: string;
@@ -62,6 +65,26 @@ export function MainPage(): JSX.Element {
 
   useEffect(() => {
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const changeTheme = (theme: any) => {
+    dispatch(applyTheme(theme));
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const time = new Date().getHours();
+      console.log(time);
+      if (time <= 18 && time >= 6) {
+        changeTheme(lightTheme);
+      } else {
+        changeTheme(darkTheme);
+      }
+    }, MINUTE_MS);
+
+    return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
