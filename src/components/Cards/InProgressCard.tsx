@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddButton, Pharagraph } from "../../styles";
+import { AddButton, Columns, TaskDescription } from "../../styles";
 import { Card } from "../Card";
 import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
 import { Todo } from "../../types/Todos";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { getItemStyle, getListStyle } from "./styles";
 import { useTranslation } from "react-i18next";
+import { deleteColumns, editTask } from "../../service";
 
 export function InProgressCard(): JSX.Element {
   const { t } = useTranslation("common");
@@ -27,7 +28,7 @@ export function InProgressCard(): JSX.Element {
             {inProgressList.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot): JSX.Element => (
-                  <Pharagraph
+                  <Columns
                     key={index}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -37,15 +38,22 @@ export function InProgressCard(): JSX.Element {
                       provided.draggableProps.style
                     )}
                   >
-                    {item.description}
+                    <div
+                      style={{ width: "90%" }}
+                      onClick={() => {
+                        editTask(item, dispatch, "inProgressList");
+                      }}
+                    >
+                      <p style={{ margin: 0 }}>{item.description}</p>
+                      <TaskDescription>{item.value}</TaskDescription>
+                    </div>
                     <DeleteTwoTone
                       onClick={(): void => {
-                        const data = { id: item.id, name: "inProgressList" };
-                        dispatch({ type: "OPEN_DELETE_MODAL", data });
+                        deleteColumns(item, dispatch, "inProgressList");
                       }}
                       style={{ cursor: "pointer" }}
                     />
-                  </Pharagraph>
+                  </Columns>
                 )}
               </Draggable>
             ))}

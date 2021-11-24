@@ -4,9 +4,16 @@ import { Card } from "../Card";
 import { Todo } from "../../types/Todos";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { getItemStyle, getListStyle } from "./styles";
-import { AddButton, Pharagraph } from "../../styles";
+import {
+  AddButton,
+  Columns,
+  ContentWrapper,
+  TaskDescription,
+  TaskTitle,
+} from "../../styles";
 import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
 import { useTranslation } from "react-i18next";
+import { deleteColumns, editTask } from "../../service";
 
 export function DoneCard(): JSX.Element {
   const { t } = useTranslation("common");
@@ -25,7 +32,7 @@ export function DoneCard(): JSX.Element {
             {doneList.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot): JSX.Element => (
-                  <Pharagraph
+                  <Columns
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
@@ -34,15 +41,21 @@ export function DoneCard(): JSX.Element {
                       provided.draggableProps.style
                     )}
                   >
-                    {item.description}
+                    <ContentWrapper
+                      onClick={() => {
+                        editTask(item, dispatch, "doneList");
+                      }}
+                    >
+                      <TaskTitle>{item.description}</TaskTitle>
+                      <TaskDescription>{item.value}</TaskDescription>
+                    </ContentWrapper>
                     <DeleteTwoTone
                       onClick={(): void => {
-                        const data = { id: item.id, name: "doneList" };
-                        dispatch({ type: "OPEN_DELETE_MODAL", data });
+                        deleteColumns(item, dispatch, "doneList");
                       }}
                       style={{ cursor: "pointer" }}
                     />
-                  </Pharagraph>
+                  </Columns>
                 )}
               </Draggable>
             ))}

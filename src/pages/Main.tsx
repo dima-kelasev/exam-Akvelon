@@ -19,6 +19,7 @@ import { ThemeSelector } from "../components/ThemeSelector";
 import { applyTheme } from "../redux/themeActions";
 import { darkTheme, lightTheme } from "../themes";
 import { MINUTE_MS } from "../consatant/const";
+import { EditModal } from "../components/Modal/EditModal";
 
 export interface PostsProps {
   body: string;
@@ -32,14 +33,13 @@ export function MainPage(): JSX.Element {
   const { t } = useTranslation("common");
   const dispatch = useDispatch();
   const [post, setPost] = React.useState<Post | undefined>();
-  const { isOpenCreate, isOpenDelete, id } = useSelector(
+  const { isOpenCreate, isOpenDelete, isOpenEdit, id } = useSelector(
     (state: any) => state.modal
   );
   const state = useSelector((state: any) => state.todos);
 
   const onDragEnd = (result: DropResult): void => {
     const { source, destination, draggableId } = result;
-    console.log("result", result);
     if (!destination) return;
     if (source.droppableId === destination.droppableId) {
       const copiedList = [...state[source.droppableId]];
@@ -76,8 +76,7 @@ export function MainPage(): JSX.Element {
   useEffect(() => {
     const interval = setInterval(() => {
       const time = new Date().getHours();
-      console.log(time);
-      if (time <= 18 && time >= 6) {
+      if (time > 6 && time < 18) {
         changeTheme(lightTheme);
       } else {
         changeTheme(darkTheme);
@@ -121,6 +120,12 @@ export function MainPage(): JSX.Element {
         taskId={id}
         onClose={() => {
           dispatch({ type: "CLOSE_DELETE_MODAL" });
+        }}
+      />
+      <EditModal
+        isOpen={isOpenEdit}
+        onClose={() => {
+          dispatch({ type: "CLOSE_EDIT_MODAL" });
         }}
       />
       {post ? <Promotion post={post} /> : <Loader />}

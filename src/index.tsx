@@ -9,7 +9,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import thunk from "redux-thunk";
-import looger from "redux-logger";
+// import looger from "redux-logger";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import common_rus from "./translations/rus/common.json";
@@ -28,7 +28,7 @@ i18next.init({
   },
 });
 
-const middleware = [thunk, looger];
+const middleware = [thunk];
 
 const persistConfig = {
   key: "TodoList",

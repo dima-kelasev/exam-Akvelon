@@ -3,6 +3,7 @@ import { AddTodoList } from "./todoReducers";
 export type ModalState = {
   isOpenCreate: boolean;
   isOpenDelete: boolean;
+  isOpenEdit: boolean;
   id?: string;
   name?: string;
 };
@@ -10,6 +11,7 @@ export type ModalState = {
 const initialStateModal: ModalState = {
   isOpenCreate: false,
   isOpenDelete: false,
+  isOpenEdit: false,
   id: "",
   name: "",
 };
@@ -28,6 +30,12 @@ export const modal = (state = initialStateModal, action: AddTodoList) => {
         id: action.data.id,
         name: action.data.name,
       };
+    case "OPEN_EDIT_MODAL":
+      return {
+        isOpenEdit: true,
+        id: action.data.id,
+        name: action.data.name,
+      };
     case "CLOSE_MODAL":
       return {
         isOpenCreate: false,
@@ -35,6 +43,10 @@ export const modal = (state = initialStateModal, action: AddTodoList) => {
     case "CLOSE_DELETE_MODAL":
       return {
         isOpenDelete: false,
+      };
+    case "CLOSE_EDIT_MODAL":
+      return {
+        isOpenEdit: false,
       };
     default:
       return state;

@@ -7,6 +7,7 @@ type dataType = {
   value: string;
   id?: string;
   list: Todo[];
+  description: string;
 };
 
 export type AddTodoList = {
@@ -41,6 +42,15 @@ export const todos = (state = initialState, action: AddTodoList) => {
       return {
         ...state,
         [data.name]: filteredCopy,
+      };
+    case "EDIT_TASK":
+      const copiedSate = state[data.name].slice();
+      const filteredTask = copiedSate.filter((task) => task.id === data.id);
+      const a = filteredTask[0];
+      a.value = data.value;
+      a.description = data.description;
+      return {
+        ...state,
       };
     case "REVISE_STATE":
       const copiedState = { ...state };

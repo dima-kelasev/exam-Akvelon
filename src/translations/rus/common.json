@@ -16,7 +16,9 @@
     "deleteTitle": "Вы уверены?",
     "addTask": "Добавить новую задачу",
     "placeholder": "...добавить задачу",
-    "promotion": "Номер поста"
+    "description": "Описание",
+    "promotion": "Номер поста",
+    "save": "Сохранить"
   },
   "lang": {
     "langTitle": "Язык",

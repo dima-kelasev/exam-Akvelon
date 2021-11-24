@@ -16,7 +16,9 @@
     "deleteTitle": "Are you sure?",
     "addTask": "Add New Task",
     "placeholder": "...add task",
-    "promotion": "Post number"
+    "description": "Description",
+    "promotion": "Post number",
+    "save": "Save"
   },
   "lang": {
     "langTitle": "Language",

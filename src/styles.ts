@@ -22,7 +22,7 @@ export const BodyStyled = styled.div`
 `;
 
 export const ModalPromotion = styled.div`
-  background: #00adff;
+  background: ${(props: any) => props.theme.primary};
   border-radius: 10px;
   padding: 5px;
   margin: 10px 0 0 0;
@@ -37,7 +37,7 @@ export const WrapperLoader = styled.div`
 `;
 
 export const PromotionCard = styled(Card)`
-  background: #00adff;
+  background: ${(props: any) => props.theme.primary};
   margin: 0 auto 10px;
   color: #fff;
   border: 1px solid #d3d3d3;
@@ -60,6 +60,19 @@ export const FormItemButton = styled.div`
 
 export const Input = styled.input`
   border: 0;
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const EditModalInput = styled.input`
+  border: 0;
+  width: 90%;
+  background: transparent;
+  margin: 10px 0 0;
   &:focus {
     outline: none;
   }
@@ -80,7 +93,7 @@ export const StyledCard = styled(Card)`
   border-radius: 10px;
 `;
 
-export const Pharagraph = styled.p`
+export const Columns = styled.div`
   border-radius: 5px;
   background: #fff;
   display: flex;
@@ -89,6 +102,21 @@ export const Pharagraph = styled.p`
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+`;
+
+export const TaskDescription = styled.p`
+  margin: 0;
+  font-size: 12px;
+  color: #000;
+  opacity: 0.5;
+`;
+
+export const TaskTitle = styled.p`
+  margin: 0;
+`;
+
+export const ContentWrapper = styled.div`
+  width: 90%;
 `;
 
 export const AddButton = styled(Button)`
@@ -102,7 +130,7 @@ export const AddButton = styled(Button)`
 export const FormButton = styled(Button)`
   margin-right: 10px;
   border: 0;
-  background: #1890ff;
+  background: ${(props) => props.theme.primary};
   color: #fff;
   border-radius: 2px;
   cursor: pointer;
@@ -120,6 +148,7 @@ export const AddComponent = styled.p`
 
 export const StyledModal = styled.div`
   position: relative;
+  bottom: 189px;
   left: 38%;
   z-index: 2;
   width: 300px;
