@@ -1,6 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddButton, Columns, TaskDescription } from "../../styles";
+import {
+  AddButton,
+  Columns,
+  ContentWrapper,
+  TaskDescription,
+  TaskTitle,
+} from "../../styles";
 import { Card } from "../Card";
 import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
 import { Todo } from "../../types/Todos";
@@ -38,15 +44,14 @@ export function InProgressCard(): JSX.Element {
                       provided.draggableProps.style
                     )}
                   >
-                    <div
-                      style={{ width: "90%" }}
+                    <ContentWrapper
                       onClick={() => {
                         editTask(item, dispatch, "inProgressList");
                       }}
                     >
-                      <p style={{ margin: 0 }}>{item.description}</p>
+                      <TaskTitle>{item.description}</TaskTitle>
                       <TaskDescription>{item.value}</TaskDescription>
-                    </div>
+                    </ContentWrapper>
                     <DeleteTwoTone
                       onClick={(): void => {
                         deleteColumns(item, dispatch, "inProgressList");

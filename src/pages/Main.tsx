@@ -107,7 +107,7 @@ export function MainPage(): JSX.Element {
           </Col>
         </StyledRow>
       </DragDropContext>
-      <ThemeSelector />
+      {/* <ThemeSelector /> */}
       <AddModal
         isOpen={isOpenCreate}
         onClose={() => {
