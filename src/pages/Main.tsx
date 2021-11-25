@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Col } from "antd";
 import React, { useEffect } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
@@ -18,8 +19,9 @@ import { ButtonTranslate } from "../components/ButtonTanslate";
 import { ThemeSelector } from "../components/ThemeSelector";
 import { applyTheme } from "../redux/themeActions";
 import { darkTheme, lightTheme } from "../themes";
-import { MINUTE_MS } from "../consatant/const";
+import { MINUTE_MS } from "../constant/const";
 import { EditModal } from "../components/Modal/EditModal";
+import { ConfirmModal } from "../components/Modal/ConfirmModal";
 
 export interface PostsProps {
   body: string;
@@ -30,12 +32,12 @@ export interface PostsProps {
 }
 
 export function MainPage(): JSX.Element {
-  const { t } = useTranslation("common");
-  const dispatch = useDispatch();
   const [post, setPost] = React.useState<Post | undefined>();
-  const { isOpenCreate, isOpenDelete, isOpenEdit, id } = useSelector(
-    (state: any) => state.modal
-  );
+  const dispatch = useDispatch();
+  const { t } = useTranslation("common");
+
+  const { isOpenCreate, isOpenDelete, isOpenEdit, isOpenConfirm, id } =
+    useSelector((state: any) => state.modal);
   const state = useSelector((state: any) => state.todos);
 
   const onDragEnd = (result: DropResult): void => {
@@ -45,6 +47,7 @@ export function MainPage(): JSX.Element {
       const copiedList = [...state[source.droppableId]];
       const [reorderedItem] = copiedList.splice(result.source.index, 1);
       copiedList.splice(destination.index, 0, reorderedItem);
+
       const data = { name: `${source.droppableId}`, list: copiedList };
       dispatch({ type: "REVISE_STATE", data });
     } else {
@@ -65,10 +68,8 @@ export function MainPage(): JSX.Element {
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const changeTheme = (theme: any) => {
     dispatch(applyTheme(theme));
   };
@@ -84,7 +85,6 @@ export function MainPage(): JSX.Element {
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -126,6 +126,12 @@ export function MainPage(): JSX.Element {
         isOpen={isOpenEdit}
         onClose={() => {
           dispatch({ type: "CLOSE_EDIT_MODAL" });
+        }}
+      />
+      <ConfirmModal
+        isOpen={isOpenConfirm}
+        onClose={() => {
+          dispatch({ type: "CLOSE_CONFIRM_MODAL" });
         }}
       />
       {post ? <Promotion post={post} /> : <Loader />}

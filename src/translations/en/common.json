@@ -16,6 +16,7 @@
     "deleteTitle": "Are you sure?",
     "addTask": "Add New Task",
     "placeholder": "...add task",
+    "title": "title",
     "description": "Description",
     "promotion": "Post number",
     "save": "Save"

@@ -10,7 +10,7 @@ export const StyledSelect = styled(Select)`
 `;
 
 export const StyledPharagraph = styled.p`
-  color: ${(props: any) => props.theme.inteface};
+  color: ${(props: any) => props.theme.interface};
 `;
 
 export const Title = styled.h1`
@@ -87,7 +87,7 @@ export const StyledRow = styled(Row)`
 
 export const StyledCard = styled(Card)`
   width: 300px;
-  background: ${(props: any) => props.theme.inteface};
+  background: ${(props: any) => props.theme.interface};
   padding: 10px;
   text-align: left;
   color: ${(props) => props.theme.textColor};
@@ -153,7 +153,7 @@ export const StyledModal = styled.div`
   left: 38%;
   z-index: 2;
   width: 300px;
-  background: ${(props: any) => props.theme.inteface};
+  background: ${(props: any) => props.theme.interface};
   border-radius: 10px;
   color: ${(props: any) => props.theme.textColor};
   text-align: center;

@@ -19,7 +19,7 @@ interface EditModalProps {
 
 export function EditModal({ isOpen, onClose }: EditModalProps) {
   const [todoDescription, setTodoDescription] = useState("");
-  const [todoTitle, settodoTitle] = useState("");
+  const [todoTitle, setTodoTitle] = useState("");
 
   const nameColumn = useSelector((state: any) => state.modal.name);
   const post = useSelector((state: any) => state.todos[nameColumn]);
@@ -31,15 +31,15 @@ export function EditModal({ isOpen, onClose }: EditModalProps) {
   if (!post) return null;
   const task = post.filter((post: any) => post.id === idTask)[0];
 
-  const editTask = (): void => {
+  const openConfirmModal = () => {
     const data = {
       id: `${idTask}`,
       name: `${nameColumn}`,
       value: `${todoDescription.length === 0 ? task.value : todoDescription}`,
       description: `${todoTitle.length === 0 ? task.description : todoTitle}`,
     };
-    dispatch({ type: "EDIT_TASK", data });
-    onClose();
+
+    dispatch({ type: "OPEN_CONFIRM_MODAL", data });
   };
 
   if (!isOpen) return null;
@@ -51,7 +51,7 @@ export function EditModal({ isOpen, onClose }: EditModalProps) {
         <EditModalInput
           type="text"
           defaultValue={task.description}
-          onChange={(e) => settodoTitle(e.target.value)}
+          onChange={(e) => setTodoTitle(e.target.value)}
         />
       </div>
       <CloseIcon onClick={onClose} />
@@ -69,7 +69,7 @@ export function EditModal({ isOpen, onClose }: EditModalProps) {
         <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
           {t("modal.cancel")}
         </FormButton>
-        <FormButton onClick={editTask}>{t("modal.save")}</FormButton>
+        <FormButton onClick={openConfirmModal}>{t("modal.save")}</FormButton>
       </FormItemButton>
     </StyledModal>,
     document.body

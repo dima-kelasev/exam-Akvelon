@@ -1,4 +1,4 @@
-import { POST_LIMIT } from "../consatant/const";
+import { POST_LIMIT } from "../constant/const";
 import { filteredNumbers } from "../service";
 
 export const loadData = () => async (dispatch: any, getState: any) => {

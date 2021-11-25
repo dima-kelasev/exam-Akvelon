@@ -1,8 +1,8 @@
 import { Todo } from "../types/Todos";
 
 export const filteredNumbers = (array: any) => {
-  const exempleArray = Array.from(Array(100).keys());
-  const newNumber = exempleArray.filter((el) => {
+  const exampleArray = Array.from(Array(100).keys());
+  const newNumber = exampleArray.filter((el) => {
     return !array.includes(el);
   });
   return newNumber;
