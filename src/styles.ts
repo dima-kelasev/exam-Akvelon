@@ -73,6 +73,7 @@ export const EditModalInput = styled.input`
   width: 90%;
   background: transparent;
   margin: 10px 0 0;
+  color: ${(props: any) => props.theme.textColor};
   &:focus {
     outline: none;
   }
