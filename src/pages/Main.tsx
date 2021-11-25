@@ -4,8 +4,6 @@ import React, { useEffect } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { AddList } from "../components/AddList";
-import { DoneCard } from "../components/Cards/DoneCard";
-import { InProgressCard } from "../components/Cards/InProgressCard";
 import { TodoCard } from "../components/Cards/TodoCards";
 import { Loader } from "../components/Loader";
 import { AddModal } from "../components/Modal/AddModal";
@@ -36,6 +34,8 @@ export function MainPage(): JSX.Element {
   const [post, setPost] = React.useState<Post | undefined>();
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
+  const card = useSelector((state: any) => state.todos);
+  const cards = Object.entries(card);
 
   const {
     isOpenCreate,
@@ -100,21 +100,20 @@ export function MainPage(): JSX.Element {
         <ButtonTranslate />
         <Title>{t("welcome.title")}</Title>
         <StyledRow gutter={16}>
-          <Col span={6}>
-            <TodoCard />
-          </Col>
-          <Col span={6}>
-            <InProgressCard />
-          </Col>
-          <Col span={6}>
-            <DoneCard />
-          </Col>
+          {cards.map((el, idx) => {
+            const [columnName, columnTask] = el;
+            return (
+              <Col key={idx} span={6}>
+                <TodoCard name={columnName} column={columnTask} />
+              </Col>
+            );
+          })}
           <Col span={6}>
             <AddList />
           </Col>
         </StyledRow>
       </DragDropContext>
-      {/* <ThemeSelector /> */}
+      <ThemeSelector />
       <AddModal
         isOpen={isOpenCreate}
         onClose={() => {

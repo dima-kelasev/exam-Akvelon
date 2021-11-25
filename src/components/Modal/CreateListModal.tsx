@@ -9,6 +9,7 @@ import {
 } from "../../styles";
 import { Typography } from "antd";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 
 const { Title } = Typography;
 
@@ -20,6 +21,14 @@ interface CreateListModalProps {
 export function CreateListModal({ isOpen, onClose }: CreateListModalProps) {
   const { t } = useTranslation("common");
   const [nameList, setNameList] = useState("");
+  const dispatch = useDispatch();
+
+  const addList = () => {
+    const data = { name: nameList };
+    dispatch({ type: "CREATE_NEW_LIST", data });
+    setNameList("");
+    onClose();
+  };
 
   if (!isOpen) return null;
   return ReactDOM.createPortal(
@@ -40,7 +49,7 @@ export function CreateListModal({ isOpen, onClose }: CreateListModalProps) {
         <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
           {t("modal.cancel")}
         </FormButton>
-        <FormButton>{t("modal.add")}</FormButton>
+        <FormButton onClick={addList}>{t("modal.add")}</FormButton>
       </FormItemButton>
     </StyledModal>,
     document.body

@@ -36,6 +36,11 @@ export const todos = (state = initialState, action: AddTodoList) => {
         ...state,
         [data.name]: copiedList,
       };
+    case "CREATE_NEW_LIST":
+      return {
+        ...state,
+        [data.name]: [],
+      };
     case "DELETE_TASK":
       const copied = state[data.name].slice();
       const filteredCopy = copied.filter((task) => task.id !== data.id);

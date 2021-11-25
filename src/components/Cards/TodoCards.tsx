@@ -6,7 +6,7 @@ import {
   TaskTitle,
 } from "../../styles";
 import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Card } from "../Card";
 import { Todo } from "../../types/Todos";
 import { Draggable, Droppable } from "react-beautiful-dnd";
@@ -14,21 +14,25 @@ import { getItemStyle, getListStyle } from "./styles";
 import { useTranslation } from "react-i18next";
 import { deleteColumns, editTask } from "../../service";
 
-export const TodoCard = (): JSX.Element => {
+interface TodoCardProps {
+  name: string;
+  column: any;
+}
+
+export const TodoCard = ({ name, column }: TodoCardProps): JSX.Element => {
   const { t } = useTranslation("common");
-  const TodoList: Todo[] = useSelector((state: any) => state.todos.todoList);
   const dispatch = useDispatch();
 
   return (
-    <Card nameCard={t("todoCards.titleTodo")}>
-      <Droppable droppableId="todoList">
+    <Card nameCard={name}>
+      <Droppable droppableId={name}>
         {(provided, snapshot): JSX.Element => (
           <div
             {...provided.droppableProps}
             ref={provided.innerRef}
             style={getListStyle(snapshot.isDraggingOver)}
           >
-            {TodoList.map((item, index) => (
+            {column.map((item: Todo, index: number) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot): JSX.Element => (
                   <div>
@@ -43,7 +47,7 @@ export const TodoCard = (): JSX.Element => {
                     >
                       <ContentWrapper
                         onClick={() => {
-                          editTask(item, dispatch, "todoList");
+                          editTask(item, dispatch, name);
                         }}
                       >
                         <TaskTitle>{item.description}</TaskTitle>
@@ -51,7 +55,7 @@ export const TodoCard = (): JSX.Element => {
                       </ContentWrapper>
                       <DeleteTwoTone
                         onClick={(): void => {
-                          deleteColumns(item, dispatch, "todoList");
+                          deleteColumns(item, dispatch, name);
                         }}
                         style={{ cursor: "pointer" }}
                       />
@@ -66,7 +70,7 @@ export const TodoCard = (): JSX.Element => {
       </Droppable>
       <AddButton
         onClick={() => {
-          const data = { name: "todoList" };
+          const data = { name: name };
           dispatch({ type: "OPEN_CREATE_MODAL", data });
         }}
       >
