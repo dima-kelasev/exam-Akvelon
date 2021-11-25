@@ -22,6 +22,7 @@ import { darkTheme, lightTheme } from "../themes";
 import { MINUTE_MS } from "../constant/const";
 import { EditModal } from "../components/Modal/EditModal";
 import { ConfirmModal } from "../components/Modal/ConfirmModal";
+import { CreateListModal } from "../components/Modal/CreateListModal";
 
 export interface PostsProps {
   body: string;
@@ -36,8 +37,14 @@ export function MainPage(): JSX.Element {
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
 
-  const { isOpenCreate, isOpenDelete, isOpenEdit, isOpenConfirm, id } =
-    useSelector((state: any) => state.modal);
+  const {
+    isOpenCreate,
+    isOpenDelete,
+    isOpenEdit,
+    isOpenConfirm,
+    isOpenListModal,
+    id,
+  } = useSelector((state: any) => state.modal);
   const state = useSelector((state: any) => state.todos);
 
   const onDragEnd = (result: DropResult): void => {
@@ -132,6 +139,12 @@ export function MainPage(): JSX.Element {
         isOpen={isOpenConfirm}
         onClose={() => {
           dispatch({ type: "CLOSE_CONFIRM_MODAL" });
+        }}
+      />
+      <CreateListModal
+        isOpen={isOpenListModal}
+        onClose={() => {
+          dispatch({ type: "CLOSE_NEW_LIST_MODAL" });
         }}
       />
       {post ? <Promotion post={post} /> : <Loader />}

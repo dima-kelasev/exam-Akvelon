@@ -5,6 +5,7 @@ export type ModalState = {
   isOpenDelete: boolean;
   isOpenEdit: boolean;
   isOpenConfirm: boolean;
+  isOpenListModal: boolean;
   id?: string;
   name?: string;
   value?: string;
@@ -16,6 +17,7 @@ const initialStateModal: ModalState = {
   isOpenDelete: false,
   isOpenEdit: false,
   isOpenConfirm: false,
+  isOpenListModal: false,
   id: "",
   name: "",
   value: "",
@@ -50,6 +52,10 @@ export const modal = (state = initialStateModal, action: AddTodoList) => {
         value: action.data.value,
         description: action.data.description,
       };
+    case "OPEN_NEW_LIST_MODAL":
+      return {
+        isOpenListModal: true,
+      };
     case "CLOSE_MODAL":
       return {
         isOpenCreate: false,
@@ -65,6 +71,10 @@ export const modal = (state = initialStateModal, action: AddTodoList) => {
     case "CLOSE_CONFIRM_MODAL":
       return {
         isOpenConfirm: false,
+      };
+    case "CLOSE_NEW_LIST_MODAL":
+      return {
+        isOpenListModal: false,
       };
     default:
       return state;
