@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React, { ReactNode, useState } from "react";
 import ReactDOM from "react-dom";
 import {
@@ -53,10 +54,7 @@ export const AddModal = ({ isOpen, onClose, post }: AddModalProps) => {
         <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
           {t("modal.cancel")}
         </FormButton>
-        <FormButton
-          onClick={addTask}
-          disabled={todoDescription.length === 0 ? true : false}
-        >
+        <FormButton onClick={addTask} disabled={todoDescription.length === 0}>
           {t("modal.add")}
         </FormButton>
       </FormItemButton>

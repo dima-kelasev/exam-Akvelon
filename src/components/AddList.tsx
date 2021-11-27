@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { AddComponent } from "../styles";
 
-export function AddList(): JSX.Element {
+export function AddList() {
   const dispatch = useDispatch();
 
   const openListModal = () => {
