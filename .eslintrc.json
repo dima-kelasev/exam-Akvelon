@@ -16,6 +16,8 @@
   "rules": {
     "quotes": ["error", "double"],
     "semi": [2, "always"],
-    "comma-dangle": [2, "always-multiline"]
+    "comma-dangle": [2, "always-multiline"],
+    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "space-before-function-paren": 0
   }
 }

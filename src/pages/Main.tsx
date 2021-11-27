@@ -1,4 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-use-before-define */
+
 import { Col } from "antd";
 import React, { useEffect } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
@@ -13,6 +14,7 @@ import { Post } from "../types/Todos";
 import { loadData } from "./action";
 import { useTranslation } from "react-i18next";
 import { ButtonTranslate } from "../components/ButtonTanslate";
+// eslint-disable-next-line no-unused-vars
 import { ThemeSelector } from "../components/ThemeSelector";
 import { applyTheme } from "../redux/themeActions";
 import { darkTheme, lightTheme } from "../themes";
@@ -39,6 +41,7 @@ export interface PostsProps {
   isViewed: boolean;
 }
 
+// eslint-disable-next-line no-undef
 export function MainPage(): JSX.Element {
   const [post, setPost] = React.useState<Post | undefined>();
   const dispatch = useDispatch();
