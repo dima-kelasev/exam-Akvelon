@@ -9,7 +9,6 @@ import { Loader } from "../components/Loader";
 import { AddModal } from "../components/Modal/AddModal";
 import { DeleteModal } from "../components/Modal/DeleteModal";
 import { Promotion } from "../components/Promotion";
-import { StyledRow, Title } from "../styles";
 import { Post } from "../types/Todos";
 import { loadData } from "./action";
 import { useTranslation } from "react-i18next";
@@ -21,6 +20,16 @@ import { MINUTE_MS } from "../constant/const";
 import { EditModal } from "../components/Modal/EditModal";
 import { ConfirmModal } from "../components/Modal/ConfirmModal";
 import { CreateListModal } from "../components/Modal/CreateListModal";
+import { CSSProperties } from "styled-components";
+import { Title } from "../styles";
+
+const wrapper: CSSProperties = {
+  display: "flex",
+};
+
+const cardWrapper: CSSProperties = {
+  marginRight: "10px",
+};
 
 export interface PostsProps {
   body: string;
@@ -99,21 +108,21 @@ export function MainPage(): JSX.Element {
       <DragDropContext onDragEnd={onDragEnd}>
         <ButtonTranslate />
         <Title>{t("welcome.title")}</Title>
-        <StyledRow gutter={16}>
+        <div style={wrapper}>
           {cards.map((el, idx) => {
             const [columnName, columnTask] = el;
             return (
-              <Col key={idx} span={6}>
+              <div key={idx} style={cardWrapper}>
                 <TodoCard name={columnName} column={columnTask} />
-              </Col>
+              </div>
             );
           })}
           <Col span={6}>
             <AddList />
           </Col>
-        </StyledRow>
+        </div>
       </DragDropContext>
-      <ThemeSelector />
+      {/* <ThemeSelector /> */}
       <AddModal
         isOpen={isOpenCreate}
         onClose={() => {
