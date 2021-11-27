@@ -53,7 +53,10 @@ export const AddModal = ({ isOpen, onClose, post }: AddModalProps) => {
         <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
           {t("modal.cancel")}
         </FormButton>
-        <FormButton onClick={addTask} htmlType="submit">
+        <FormButton
+          onClick={addTask}
+          disabled={todoDescription.length === 0 ? true : false}
+        >
           {t("modal.add")}
         </FormButton>
       </FormItemButton>

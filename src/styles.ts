@@ -136,6 +136,10 @@ export const FormButton = styled(Button)`
   border-radius: 2px;
   cursor: pointer;
   padding: 10px;
+  &:disabled {
+    background: ${(props: any) => props.theme.backgroundColor};
+    cursor: not-allowed;
+  }
 `;
 
 export const AddComponent = styled.p`
