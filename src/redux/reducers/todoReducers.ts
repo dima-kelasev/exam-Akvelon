@@ -64,7 +64,7 @@ export const todos = (state = initialState, action: AddTodoList) => {
         ...copiedState,
       };
     case "MOVE_POST":
-      //@ts-ignore
+      // @ts-ignore
       const { fromListName, toListName, taskId } = data;
       const fromList = state[fromListName];
       const taskIdx = fromList.findIndex((el) => el.id === taskId);
