@@ -30,14 +30,14 @@ Its's ToDO Manager like Trello
 
 ### Technical stack
 
-:cherry_blossom: Main Language - React
-:exclamation: Typification - Type Script
-:gun: CodeStyle - ESLint, Prettier;
-:package: State manager - Redux
-:ghost: Open modal - React Portals
-:dvd: Save state - Redux-persist
-:dolls: MultiLanguage - React-i18next
-:satellite: Request to server - Redux-Thunk
+- :cherry_blossom: Main Language - React
+- :exclamation: Typification - Type Script
+- :gun: CodeStyle - ESLint, Prettier;
+- :package: State manager - Redux
+- :ghost: Open modal - React Portals
+- :dvd: Save state - Redux-persist
+- :dolls: MultiLanguage - React-i18next
+- :satellite: Request to server - Redux-Thunk
 
 ---
 
