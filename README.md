@@ -43,4 +43,4 @@ Its's ToDO Manager like Trello
 
 # Git-Hub Pages
 
-[Link:](https://dima-kelasev.github.io/exam-Akvelon/)
+[link: Todo like Trello](https://dima-kelasev.github.io/exam-Akvelon/)
