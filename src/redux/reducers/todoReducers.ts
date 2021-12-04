@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Todo } from "../../types/Todos";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,6 +9,7 @@ type dataType = {
   id?: string;
   list: Todo[];
   description: string;
+  idx: number;
 };
 
 export type AddTodoList = {
@@ -65,13 +67,13 @@ export const todos = (state = initialState, action: AddTodoList) => {
       };
     case "MOVE_POST":
       // @ts-ignore
-      const { fromListName, toListName, taskId } = data;
+      const { fromListName, toListName, taskId, idx } = data;
       const fromList = state[fromListName];
       const taskIdx = fromList.findIndex((el) => el.id === taskId);
       if (fromList && taskIdx !== -1) {
         const copiedTask = fromList[taskIdx];
         const toList = state[toListName];
-        toList.push(copiedTask);
+        toList.splice(idx, 0, copiedTask);
         return {
           ...state,
           [toListName]: toList,

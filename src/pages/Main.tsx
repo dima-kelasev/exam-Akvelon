@@ -14,8 +14,6 @@ import { Post } from "../types/Todos";
 import { loadData } from "./action";
 import { useTranslation } from "react-i18next";
 import { ButtonTranslate } from "../components/ButtonTanslate";
-// eslint-disable-next-line no-unused-vars
-import { ThemeSelector } from "../components/ThemeSelector";
 import { applyTheme } from "../redux/themeActions";
 import { darkTheme, lightTheme } from "../themes";
 import { MINUTE_MS } from "../constant/const";
@@ -66,7 +64,6 @@ export function MainPage(): JSX.Element {
       const copiedList = [...state[source.droppableId]];
       const [reorderedItem] = copiedList.splice(result.source.index, 1);
       copiedList.splice(destination.index, 0, reorderedItem);
-
       const data = { name: `${source.droppableId}`, list: copiedList };
       dispatch({ type: "REVISE_STATE", data });
     } else {
@@ -74,6 +71,7 @@ export function MainPage(): JSX.Element {
         fromListName: source.droppableId,
         toListName: destination.droppableId,
         taskId: draggableId,
+        idx: destination.index,
       };
       dispatch({ type: "MOVE_POST", data });
     }
@@ -125,7 +123,6 @@ export function MainPage(): JSX.Element {
           </Col>
         </div>
       </DragDropContext>
-      {/* <ThemeSelector /> */}
       <AddModal
         isOpen={isOpenCreate}
         onClose={() => {
