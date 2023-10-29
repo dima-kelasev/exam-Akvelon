@@ -1,22 +1,23 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { App } from "./App";
-import { Provider } from "react-redux";
-import { rootReducer } from "./redux/store";
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { PersistGate } from "redux-persist/integration/react";
-import thunk from "redux-thunk";
-import { I18nextProvider } from "react-i18next";
-import i18next from "i18next";
-import common_rus from "./translations/rus/common.json";
-import common_en from "./translations/en/common.json";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { App } from './App';
+import { Provider } from 'react-redux';
+import { rootReducer } from './redux/store';
+import { createStore, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react';
+import thunk from 'redux-thunk';
+import { I18nextProvider } from 'react-i18next';
+import i18next from 'i18next';
+import common_rus from './translations/rus/common.json';
+import common_en from './translations/en/common.json';
 
 i18next.init({
   interpolation: { escapeValue: false },
-  lng: "rus",
+  lng: 'rus',
   resources: {
     en: {
       common: common_en,
@@ -30,7 +31,7 @@ i18next.init({
 const middleware = [thunk];
 
 const persistConfig = {
-  key: "TodoList",
+  key: 'TodoList',
   storage: storage,
 };
 const pReducer = persistReducer<any, any>(persistConfig, rootReducer);
@@ -39,6 +40,11 @@ const store = createStore(
   pReducer,
   composeWithDevTools(applyMiddleware(...middleware))
 );
+
+// export const store = configureStore(
+//   pReducer
+//   // composeWithDevTools(applyMiddleware(...middleware))
+// );
 
 const persistor = persistStore(store);
 
@@ -52,5 +58,5 @@ ReactDOM.render(
       </Provider>
     </I18nextProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

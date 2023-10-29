@@ -1,4 +1,4 @@
-import { Todo } from "../types/Todos";
+import { Todo } from '../types/Todos';
 
 export const filteredNumbers = (array: any) => {
   const exampleArray = Array.from(Array(100).keys());
@@ -10,10 +10,10 @@ export const filteredNumbers = (array: any) => {
 
 export function editTask(item: Todo, dispatch: any, name: string) {
   const data = { id: item.id, name: name };
-  dispatch({ type: "OPEN_EDIT_MODAL", data });
+  dispatch({ type: 'OPEN_EDIT_MODAL', data });
 }
 
 export function deleteColumns(item: Todo, dispatch: any, name: string) {
   const data = { id: item.id, name: name };
-  dispatch({ type: "OPEN_DELETE_MODAL", data });
+  dispatch({ type: 'OPEN_DELETE_MODAL', data });
 }

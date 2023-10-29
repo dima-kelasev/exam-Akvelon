@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
-import { todos } from "./reducers/todoReducers";
-import { modal } from "./reducers/ModalReducers";
-import { posts } from "./reducers/postsReducer";
-import { themeReducer } from "./reducers/themeReducer";
+import { combineReducers } from 'redux';
+import { todos } from './reducers/todoReducers';
+import { modal } from './reducers/ModalReducers';
+import { posts } from './reducers/postsReducer';
+import { themeReducer } from './reducers/themeReducer';
 
 const allReducers = {
   ...todos,
@@ -12,7 +12,7 @@ const allReducers = {
 };
 
 export type AppState = {
-  [key in keyof typeof allReducers]: ReturnType<typeof allReducers[key]>;
+  [key in keyof typeof allReducers]: ReturnType<(typeof allReducers)[key]>;
 };
 
 export const rootReducer = combineReducers({

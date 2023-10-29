@@ -1,9 +1,8 @@
-import React from "react";
-import { MainPage } from "./pages/Main";
+import { MainPage } from './pages/Main';
 
-import { useSelector } from "react-redux";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { BodyStyled } from "./styles";
+import { useSelector } from 'react-redux';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { BodyStyled } from './styles';
 
 export const GlobalStyle = createGlobalStyle`
   body {
