@@ -1,3 +1,11 @@
+export interface ITheme {
+  backgroundColor: string;
+  textColor: string;
+  interface: string;
+  title: string;
+  primary: string;
+}
+
 export const darkTheme = {
   backgroundColor: '#333333',
   textColor: '#000000',

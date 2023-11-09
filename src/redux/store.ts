@@ -1,7 +1,7 @@
 import { todos } from './reducers/todoReducers';
 import { modal } from './reducers/ModalReducers';
 import { posts } from './reducers/postsReducer';
-import { themeReducer } from './reducers/themeReducer';
+
 import {
   // applyMiddleware,
   configureStore,
@@ -10,6 +10,7 @@ import {
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './saga';
 import { modalReducer } from './reducers/modal';
+import { themeReducer } from './reducers/theme';
 // import { modalReducer } from './reducers/modal/index';
 
 const allReducers = {
@@ -41,7 +42,7 @@ const staticReducers = {
   // todos: ,
   modal: modalReducer,
   // posts: ,
-  // themeReducer: ,
+  theme: themeReducer,
 };
 
 export const store = (initialState = {}) => {
