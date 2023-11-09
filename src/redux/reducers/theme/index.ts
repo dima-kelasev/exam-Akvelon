@@ -1,15 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { INITIAL_THEME_STATE } from './constants';
-import { APPLY_THEME } from '../../themeActions';
+import { ITheme } from '../../../themes';
 
-const slice = createSlice({
-  name: APPLY_THEME,
+export const themeSlice = createSlice({
+  name: 'theme',
   initialState: INITIAL_THEME_STATE,
   reducers: {
-    applyTheme: (_, action: PayloadAction) => {
+    applyTheme: (_, action: PayloadAction<ITheme>) => {
       Object.assign({}, { theme: action.payload });
     },
   },
 });
 
-export const themeReducer = slice.reducer;
+export const themeReducer = themeSlice.reducer;

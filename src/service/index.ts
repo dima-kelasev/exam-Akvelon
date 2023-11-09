@@ -1,3 +1,4 @@
+import { openDeleteModal, openEditModal } from '../redux/action/modal';
 import { Todo } from '../types/Todos';
 
 export const filteredNumbers = (array: any) => {
@@ -10,10 +11,10 @@ export const filteredNumbers = (array: any) => {
 
 export function editTask(item: Todo, dispatch: any, name: string) {
   const data = { id: item.id, name: name };
-  dispatch({ type: 'OPEN_EDIT_MODAL', data });
+  dispatch(openEditModal(data));
 }
 
 export function deleteColumns(item: Todo, dispatch: any, name: string) {
   const data = { id: item.id, name: name };
-  dispatch({ type: 'OPEN_DELETE_MODAL', data });
+  dispatch(openDeleteModal(data));
 }

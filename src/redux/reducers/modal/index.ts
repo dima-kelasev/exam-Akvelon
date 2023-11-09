@@ -1,41 +1,31 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { INITIAL_MODAL_STATE } from './constants';
-import { ModalState } from '../ModalReducers';
-import { AddTodoList } from '../todoReducers';
+import { IDataType, ModalState } from './type';
 
-const slice = createSlice({
+export const modalSlice = createSlice({
   name: 'modal',
   initialState: INITIAL_MODAL_STATE,
   reducers: {
-    openCreateModal: (
-      state: ModalState,
-      action: PayloadAction<AddTodoList>
-    ) => {
+    openCreateModal: (state: ModalState, action: PayloadAction<IDataType>) => {
       state.isOpenCreate = true;
-      state.name = action.payload.data.name;
+      state.name = action.payload.name;
     },
-    openDeleteModal: (
-      state: ModalState,
-      action: PayloadAction<AddTodoList>
-    ) => {
+    openDeleteModal: (state: ModalState, action: PayloadAction<IDataType>) => {
       state.isOpenDelete = true;
-      state.name = action.payload.data.name;
-      state.id = action.payload.data.id;
+      state.name = action.payload.name;
+      state.id = action.payload.id;
     },
-    openEditModal: (state: ModalState, action: PayloadAction<AddTodoList>) => {
+    openEditModal: (state: ModalState, action: PayloadAction<IDataType>) => {
       state.isOpenEdit = true;
-      state.name = action.payload.data.name;
-      state.id = action.payload.data.id;
+      state.name = action.payload.name;
+      state.id = action.payload.id;
     },
-    openConfirmModal: (
-      state: ModalState,
-      action: PayloadAction<AddTodoList>
-    ) => {
+    openConfirmModal: (state: ModalState, action: PayloadAction<IDataType>) => {
       state.isOpenConfirm = true;
-      state.name = action.payload.data.name;
-      state.id = action.payload.data.id;
-      state.value = action.payload.data.value;
-      state.description = action.payload.data.description;
+      state.name = action.payload.name;
+      state.id = action.payload.id;
+      state.value = action.payload.value;
+      state.description = action.payload.description;
     },
     openNewListModal: (state: ModalState) => {
       state.isOpenListModal = true;
@@ -58,4 +48,4 @@ const slice = createSlice({
   },
 });
 
-export const modalReducer = slice.reducer;
+export const modalReducer = modalSlice.reducer;

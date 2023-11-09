@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   CloseIcon,
   EditModalInput,
   FormButton,
   FormItemButton,
   StyledModal,
-} from "../../styles";
-import { Todo } from "../../types/Todos";
+} from '../../styles';
+import { Todo } from '../../types/Todos';
+import { openConfirmModal } from '../../redux/action/modal';
 
 interface EditModalProps {
   isOpen: boolean;
@@ -18,20 +19,20 @@ interface EditModalProps {
 }
 
 export function EditModal({ isOpen, onClose }: EditModalProps) {
-  const [todoDescription, setTodoDescription] = useState("");
-  const [todoTitle, setTodoTitle] = useState("");
+  const [todoDescription, setTodoDescription] = useState('');
+  const [todoTitle, setTodoTitle] = useState('');
 
   const nameColumn = useSelector((state: any) => state.modal.name);
   const post = useSelector((state: any) => state.todos[nameColumn]);
   const idTask = useSelector((state: any) => state.modal.id);
 
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
   const dispatch = useDispatch();
 
   if (!post) return null;
   const task = post.filter((post: any) => post.id === idTask)[0];
 
-  const openConfirmModal = () => {
+  const openConfirmModalHandle = () => {
     const data = {
       id: `${idTask}`,
       name: `${nameColumn}`,
@@ -39,14 +40,14 @@ export function EditModal({ isOpen, onClose }: EditModalProps) {
       description: `${todoTitle.length === 0 ? task.description : todoTitle}`,
     };
 
-    dispatch({ type: "OPEN_CONFIRM_MODAL", data });
+    dispatch(openConfirmModal(data));
   };
 
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
     <StyledModal>
-      <div style={{ textAlign: "left" }}>
+      <div style={{ textAlign: 'left' }}>
         <p style={{ marginBottom: 0 }}>Title: </p>&nbsp;
         <EditModalInput
           type="text"
@@ -55,8 +56,8 @@ export function EditModal({ isOpen, onClose }: EditModalProps) {
         />
       </div>
       <CloseIcon onClick={onClose} />
-      <h3 style={{ textAlign: "left", marginBottom: 0 }}>
-        {t("modal.description")}:
+      <h3 style={{ textAlign: 'left', marginBottom: 0 }}>
+        {t('modal.description')}:
       </h3>
       &nbsp;
       <EditModalInput
@@ -66,10 +67,12 @@ export function EditModal({ isOpen, onClose }: EditModalProps) {
         onChange={(e) => setTodoDescription(e.target.value)}
       />
       <FormItemButton>
-        <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
-          {t("modal.cancel")}
+        <FormButton style={{ background: '#ff4d4f' }} onClick={onClose}>
+          {t('modal.cancel')}
         </FormButton>
-        <FormButton onClick={openConfirmModal}>{t("modal.save")}</FormButton>
+        <FormButton onClick={openConfirmModalHandle}>
+          {t('modal.save')}
+        </FormButton>
       </FormItemButton>
     </StyledModal>,
     document.body

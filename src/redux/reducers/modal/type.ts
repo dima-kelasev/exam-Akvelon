@@ -1,3 +1,5 @@
+import { Todo } from '../../../types/Todos';
+
 export type ModalState = {
   isOpenCreate: boolean;
   isOpenDelete: boolean;
@@ -9,3 +11,13 @@ export type ModalState = {
   value?: string;
   description?: string;
 };
+
+export interface IDataType {
+  name: string;
+  otherArray?: string;
+  value?: string;
+  id?: string;
+  list?: Todo[];
+  description?: string;
+  idx?: number;
+}

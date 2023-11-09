@@ -13,7 +13,6 @@ import { Post } from '../types/Todos';
 import { loadData } from './action';
 import { useTranslation } from 'react-i18next';
 import { ButtonTranslate } from '../components/ButtonTanslate';
-import { applyTheme } from '../redux/themeActions';
 import { darkTheme, lightTheme } from '../themes';
 import { MINUTE_MS } from '../constant/const';
 import { EditModal } from '../components/Modal/EditModal';
@@ -21,6 +20,15 @@ import { ConfirmModal } from '../components/Modal/ConfirmModal';
 import { CreateListModal } from '../components/Modal/CreateListModal';
 import { CSSProperties } from 'styled-components';
 import { Title } from '../styles';
+import { movePost, reviseState } from '../redux/action/todo';
+import {
+  closeConfirmModal,
+  closeCreateModal,
+  closeDeleteModal,
+  closeEditModal,
+  closeNewListModal,
+} from '../redux/action/modal';
+import { applyTheme } from '../redux/action/theme';
 
 const wrapper: CSSProperties = {
   display: 'flex',
@@ -64,15 +72,16 @@ export function MainPage(): JSX.Element {
       const [reorderedItem] = copiedList.splice(result.source.index, 1);
       copiedList.splice(destination.index, 0, reorderedItem);
       const data = { name: `${source.droppableId}`, list: copiedList };
-      dispatch({ type: 'REVISE_STATE', data });
+      dispatch(reviseState(data));
     } else {
       const data = {
+        name: '',
         fromListName: source.droppableId,
         toListName: destination.droppableId,
         taskId: draggableId,
         idx: destination.index,
       };
-      dispatch({ type: 'MOVE_POST', data });
+      dispatch(movePost(data));
     }
   };
 
@@ -125,7 +134,7 @@ export function MainPage(): JSX.Element {
       <AddModal
         isOpen={isOpenCreate}
         onClose={() => {
-          dispatch({ type: 'CLOSE_MODAL' });
+          dispatch(closeCreateModal());
         }}
         post={post}
       />
@@ -133,25 +142,25 @@ export function MainPage(): JSX.Element {
         isOpen={isOpenDelete}
         taskId={id}
         onClose={() => {
-          dispatch({ type: 'CLOSE_DELETE_MODAL' });
+          dispatch(closeDeleteModal());
         }}
       />
       <EditModal
         isOpen={isOpenEdit}
         onClose={() => {
-          dispatch({ type: 'CLOSE_EDIT_MODAL' });
+          dispatch(closeEditModal());
         }}
       />
       <ConfirmModal
         isOpen={isOpenConfirm}
         onClose={() => {
-          dispatch({ type: 'CLOSE_CONFIRM_MODAL' });
+          dispatch(closeConfirmModal());
         }}
       />
       <CreateListModal
         isOpen={isOpenListModal}
         onClose={() => {
-          dispatch({ type: 'CLOSE_NEW_LIST_MODAL' });
+          dispatch(closeNewListModal());
         }}
       />
       {post ? <Promotion post={post} /> : <Loader />}

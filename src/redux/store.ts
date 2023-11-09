@@ -1,47 +1,15 @@
-import { todos } from './reducers/todoReducers';
-import { modal } from './reducers/ModalReducers';
-import { posts } from './reducers/postsReducer';
-
-import {
-  // applyMiddleware,
-  configureStore,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './saga';
 import { modalReducer } from './reducers/modal';
 import { themeReducer } from './reducers/theme';
-// import { modalReducer } from './reducers/modal/index';
-
-const allReducers = {
-  ...todos,
-  ...modal,
-  ...posts,
-  ...themeReducer,
-};
-
-export type AppState = {
-  [key in keyof typeof allReducers]: ReturnType<(typeof allReducers)[key]>;
-};
-
-// export const rootReducer = combineReducers({
-//   todos,
-//   modal,
-//   posts,
-//   themeReducer,
-// });
-
-// const createReducer = () => ({
-//   todos,
-//   modal,
-//   posts,
-//   themeReducer,
-// });
+import { todoReducer } from './reducers/todo';
+import { postReducer } from './reducers/post';
 
 const staticReducers = {
-  // todos: ,
+  todos: todoReducer,
   modal: modalReducer,
-  // posts: ,
+  posts: postReducer,
   theme: themeReducer,
 };
 

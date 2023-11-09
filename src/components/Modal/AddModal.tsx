@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-use-before-define
-import React, { ReactNode, useState } from "react";
-import ReactDOM from "react-dom";
+import { ReactNode, useState } from 'react';
+import ReactDOM from 'react-dom';
 import {
   CloseIcon,
   StyledModal,
@@ -8,11 +7,12 @@ import {
   FormButton,
   Input,
   ModalPromotion,
-} from "../../styles";
-import { Typography } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { PostsProps } from "../../pages/Main";
-import { useTranslation } from "react-i18next";
+} from '../../styles';
+import { Typography } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { PostsProps } from '../../pages/Main';
+import { useTranslation } from 'react-i18next';
+import { addTask } from '../../redux/action/todo';
 
 const { Title } = Typography;
 
@@ -23,39 +23,42 @@ interface AddModalProps {
   post?: PostsProps;
 }
 export const AddModal = ({ isOpen, onClose, post }: AddModalProps) => {
-  const { t } = useTranslation("common");
-  const [todoDescription, setTodoDescription] = useState("");
+  const { t } = useTranslation('common');
+  const [todoDescription, setTodoDescription] = useState('');
   const dispatch = useDispatch();
   const nameColumn = useSelector((state: any) => state.modal.name);
 
-  const addTask = (): void => {
+  const handleAddTask = (): void => {
     const data = { name: `${nameColumn}`, value: todoDescription };
-    dispatch({ type: "ADD_TASK", data });
-    setTodoDescription("");
+    dispatch(addTask(data));
+    setTodoDescription('');
     onClose();
   };
 
   if (!isOpen) return null;
   return ReactDOM.createPortal(
     <StyledModal>
-      <Title level={3} style={{ margin: "0, 0, 10px, 0 " }}>
-        {t("modal.addTask")}
+      <Title level={3} style={{ margin: '0, 0, 10px, 0 ' }}>
+        {t('modal.addTask')}
       </Title>
       <CloseIcon onClick={onClose} />
       <Input
         required
         autoFocus
-        placeholder={t("modal.placeholder")}
+        placeholder={t('modal.placeholder')}
         type="text"
         value={todoDescription}
         onChange={(e) => setTodoDescription(e.target.value)}
       />
       <FormItemButton>
-        <FormButton style={{ background: "#ff4d4f" }} onClick={onClose}>
-          {t("modal.cancel")}
+        <FormButton style={{ background: '#ff4d4f' }} onClick={onClose}>
+          {t('modal.cancel')}
         </FormButton>
-        <FormButton onClick={addTask} disabled={todoDescription.length === 0}>
-          {t("modal.add")}
+        <FormButton
+          onClick={handleAddTask}
+          disabled={todoDescription.length === 0}
+        >
+          {t('modal.add')}
         </FormButton>
       </FormItemButton>
 
@@ -63,7 +66,7 @@ export const AddModal = ({ isOpen, onClose, post }: AddModalProps) => {
         <ModalPromotion>
           <p>{post.title}</p>
           <p>
-            {t("modal.promotion")}&nbsp; {post.id}
+            {t('modal.promotion')}&nbsp; {post.id}
           </p>
           <p>{post.body}</p>
         </ModalPromotion>

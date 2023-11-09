@@ -4,15 +4,16 @@ import {
   ContentWrapper,
   TaskDescription,
   TaskTitle,
-} from "../../styles";
-import DeleteTwoTone from "@ant-design/icons/lib/icons/DeleteTwoTone";
-import { useDispatch } from "react-redux";
-import { Card } from "../Card";
-import { Todo } from "../../types/Todos";
-import { Draggable, Droppable } from "react-beautiful-dnd";
-import { getItemStyle, getListStyle } from "./styles";
-import { useTranslation } from "react-i18next";
-import { deleteColumns, editTask } from "../../service";
+} from '../../styles';
+import DeleteTwoTone from '@ant-design/icons/lib/icons/DeleteTwoTone';
+import { useDispatch } from 'react-redux';
+import { Card } from '../Card';
+import { Todo } from '../../types/Todos';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { getItemStyle, getListStyle } from './styles';
+import { useTranslation } from 'react-i18next';
+import { deleteColumns, editTask } from '../../service';
+import { openCreateModal } from '../../redux/action/modal';
 
 interface TodoCardProps {
   name: string;
@@ -20,7 +21,7 @@ interface TodoCardProps {
 }
 
 export const TodoCard = ({ name, column }: TodoCardProps): JSX.Element => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
   const dispatch = useDispatch();
 
   return (
@@ -57,7 +58,7 @@ export const TodoCard = ({ name, column }: TodoCardProps): JSX.Element => {
                         onClick={(): void => {
                           deleteColumns(item, dispatch, name);
                         }}
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                       />
                     </Columns>
                   </div>
@@ -71,10 +72,10 @@ export const TodoCard = ({ name, column }: TodoCardProps): JSX.Element => {
       <AddButton
         onClick={() => {
           const data = { name: name };
-          dispatch({ type: "OPEN_CREATE_MODAL", data });
+          dispatch(openCreateModal(data));
         }}
       >
-        {t("todoCards.addButton")}
+        {t('todoCards.addButton')}
       </AddButton>
     </Card>
   );
