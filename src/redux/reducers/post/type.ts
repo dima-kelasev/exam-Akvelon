@@ -3,6 +3,6 @@ export type Posts = {
   data: string;
 };
 
-export type StateType = {
+export type PostStateType = {
   posts: string[];
 };

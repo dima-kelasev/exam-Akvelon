@@ -29,6 +29,7 @@ import {
   closeNewListModal,
 } from '../redux/action/modal';
 import { applyTheme } from '../redux/action/theme';
+import { IStore } from '../redux/type';
 
 const wrapper: CSSProperties = {
   display: 'flex',
@@ -61,8 +62,8 @@ export function MainPage(): JSX.Element {
     isOpenConfirm,
     isOpenListModal,
     id,
-  } = useSelector((state: any) => state.modal);
-  const state = useSelector((state: any) => state.todos);
+  } = useSelector((state: IStore) => state.modal);
+  const state = useSelector((state: IStore) => state.todos);
 
   const onDragEnd = (result: DropResult): void => {
     const { source, destination, draggableId } = result;
@@ -140,7 +141,7 @@ export function MainPage(): JSX.Element {
       />
       <DeleteModal
         isOpen={isOpenDelete}
-        taskId={id}
+        taskId={id as string}
         onClose={() => {
           dispatch(closeDeleteModal());
         }}

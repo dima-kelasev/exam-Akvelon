@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { INITIAL_POST_STATE } from './constansts';
-import { StateType } from './type';
+import { PostStateType } from './type';
 
 export const postSlice = createSlice({
   name: 'post',
   initialState: INITIAL_POST_STATE,
   reducers: {
-    setViewPost: (state: StateType, action: PayloadAction<string>) => {
+    setViewPost: (state: PostStateType, action: PayloadAction<string>) => {
       const posts = state.posts.slice();
       posts.push(action.payload);
       const newState = {
@@ -15,7 +15,7 @@ export const postSlice = createSlice({
       };
       newState;
     },
-    dropState: (state: StateType) => {
+    dropState: (state: PostStateType) => {
       state = INITIAL_POST_STATE;
     },
   },
