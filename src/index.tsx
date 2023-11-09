@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import { Provider } from 'react-redux';
-import { rootReducer } from './redux/store';
+import { rootReducer, store } from './redux/store';
 import { createStore, applyMiddleware } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -28,33 +28,34 @@ i18next.init({
   },
 });
 
-const middleware = [thunk];
+// const middleware = [thunk];
 
-const persistConfig = {
-  key: 'TodoList',
-  storage: storage,
-};
-const pReducer = persistReducer<any, any>(persistConfig, rootReducer);
+// const persistConfig = {
+//   key: 'TodoList',
+//   storage: storage,
+// };
+// const pReducer = persistReducer<any, any>(persistConfig, rootReducer);
 
-const store = createStore(
-  pReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+// const store = createStore(
+//   pReducer,
+//   composeWithDevTools(applyMiddleware(...middleware))
+// );
 
 // export const store = configureStore(
 //   pReducer
 //   // composeWithDevTools(applyMiddleware(...middleware))
 // );
 
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <App />
-        </PersistGate>
+        {/* <PersistGate persistor={persistor}>
+
+        </PersistGate> */}
+        <App />
       </Provider>
     </I18nextProvider>
   </React.StrictMode>,
