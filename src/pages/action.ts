@@ -1,11 +1,11 @@
-import { POST_LIMIT } from "../constant/const";
-import { filteredNumbers } from "../service";
+import { POST_LIMIT } from '../constant/const';
+import { filteredNumbers } from '../service';
 
 export const loadData = () => async (dispatch: any, getState: any) => {
   const { posts } = getState().posts;
 
   if (posts.length === POST_LIMIT) {
-    dispatch({ type: "DROP_STATE" });
+    dispatch({ type: 'DROP_STATE' });
   }
   const stateNewId = filteredNumbers(posts);
   const randomElement =
@@ -17,7 +17,7 @@ export const loadData = () => async (dispatch: any, getState: any) => {
     const result = await response.json();
 
     if (result) {
-      dispatch({ type: "SET_VIEWED_POST", data: result.id });
+      dispatch({ type: 'SET_VIEWED_POST', data: result.id });
     }
 
     return result;

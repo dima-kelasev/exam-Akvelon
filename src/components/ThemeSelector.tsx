@@ -1,8 +1,8 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { applyTheme } from "../redux/themeActions";
-import { darkTheme, lightTheme } from "../themes";
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { darkTheme, lightTheme } from '../themes';
+import { applyTheme } from '../redux/action/theme';
+import { ITheme } from '../redux/reducers/theme/type';
 
 const StyledButton = styled.button`
   color: ${(props) => props.theme.textColor};
@@ -18,7 +18,7 @@ const StyledButton = styled.button`
 
 export const ThemeSelector = () => {
   const dispatch = useDispatch();
-  const changeTheme = (theme: any) => {
+  const changeTheme = (theme: ITheme) => {
     dispatch(applyTheme(theme));
   };
 
