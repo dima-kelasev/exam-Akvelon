@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { INITIAL_POST_STATE } from './constansts';
 import { PostStateType } from './type';
+import { Post } from '../../../types/Todos';
 
 export const postSlice = createSlice({
   name: 'post',
@@ -18,6 +19,8 @@ export const postSlice = createSlice({
     dropState: (state: PostStateType) => {
       state = INITIAL_POST_STATE;
     },
+    // eslint-disable-next-line no-empty-pattern
+    callGetPostSaga: ({}, {}: PayloadAction) => {},
   },
 });
 

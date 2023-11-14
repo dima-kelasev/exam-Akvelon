@@ -10,7 +10,7 @@ import { AddModal } from '../components/Modal/AddModal';
 import { DeleteModal } from '../components/Modal/DeleteModal';
 import { Promotion } from '../components/Promotion';
 import { Post } from '../types/Todos';
-import { loadData } from './action';
+
 import { useTranslation } from 'react-i18next';
 import { ButtonTranslate } from '../components/ButtonTanslate';
 import { darkTheme, lightTheme } from '../themes';
@@ -29,7 +29,8 @@ import {
   closeNewListModal,
 } from '../redux/action/modal';
 import { applyTheme } from '../redux/action/theme';
-import { IStore } from '../redux/type';
+import { RootState } from '../redux/type';
+import { callGetPostSaga } from '../redux/action/post';
 
 const wrapper: CSSProperties = {
   display: 'flex',
@@ -62,8 +63,8 @@ export function MainPage(): JSX.Element {
     isOpenConfirm,
     isOpenListModal,
     id,
-  } = useSelector((state: IStore) => state.modal);
-  const state = useSelector((state: IStore) => state.todos);
+  } = useSelector((state: RootState) => state.modal);
+  const state = useSelector((state: RootState) => state.todos);
 
   const onDragEnd = (result: DropResult): void => {
     const { source, destination, draggableId } = result;
@@ -87,7 +88,7 @@ export function MainPage(): JSX.Element {
   };
 
   const load = async (): Promise<void> => {
-    const result = await dispatch(loadData());
+    const result = await dispatch(callGetPostSaga());
     // @ts-ignore
     setPost(result);
   };

@@ -1,6 +1,6 @@
 import { Reducer, configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from './saga';
+import rootSaga from './reducers/post/saga';
 import { modalReducer } from './reducers/modal';
 import { themeReducer } from './reducers/theme';
 import { todoReducer } from './reducers/todo';

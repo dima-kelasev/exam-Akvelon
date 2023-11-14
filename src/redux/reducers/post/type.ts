@@ -5,4 +5,6 @@ export type Posts = {
 
 export type PostStateType = {
   posts: string[];
+  isLoading?: boolean;
+  isError?: boolean;
 };
